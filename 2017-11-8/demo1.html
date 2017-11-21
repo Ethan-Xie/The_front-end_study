@@ -1,0 +1,101 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+     //============闭包的测试
+     //作用域链
+     var scope="globe scope";
+     function checkscope(){
+        var scope="local scope";
+        function f(){
+            return scope;
+        }
+        return f();
+     }
+     console.log(checkscope());
+
+     function checkscope2(){
+        var scope="local scope";
+        function f2(){
+            return scope;
+        }
+        return f2;
+     }
+     console.log(checkscope2()());
+//私有状态
+     var uniqueInteger=(function(){
+         var count=2;
+         return function(){return count++;}//++count --->3 4
+     }())
+     console.log(uniqueInteger);//function(){return count++;}
+     console.log(uniqueInteger());//demo1.html:31 2
+     console.log(uniqueInteger());//3
+     var uniqueInteger2=uniqueInteger;
+     console.log(uniqueInteger2());//4  引用赋值
+
+
+     //闭包的注意：（共享的变量）
+     function constfunc(v){
+         return function() {return v;};
+     }
+     //创建一个数组来存储常数函数
+     var funcs=[];
+     for(var i=0;i<10;i++){
+         funcs[i]=constfunc(i);
+     }
+     console.log(funcs[5]());//5
+
+     //比较不同
+     function constfuncs(){
+        var funcs=[];
+     for(var i=0;i<10;i++){
+         funcs[i]=function(x) {return i;};
+     }
+     return funcs;
+     }
+     var funcs2=constfuncs();
+     console.log(funcs2[5]());//10
+     console.log(constfuncs());//10个函数，共享函数的变量
+
+     //抛出异常：throw Error("this error is test example");
+
+     //bind
+     function f(y){
+         return this.x+y;
+     }
+     var o={x:1};
+     var g=f.bind(o);
+     console.log(g(2));//=>3
+     //另一种实现方式(支持ecmascript3 没有这个方法)
+     function bind(f,o){
+         if(f.bind) return f.bind(o);
+         else return function(){
+                 return f.apply(o.arguments);
+             }
+     }
+
+     //bind的其他应用
+     var sum=function(x,y){
+         return x+y;
+     }
+     var succ=sum.bind(null,1);//this的值绑定到Null.
+     succ(2);//=3
+
+     //2
+     function f(y,z){return this.x+y+z};
+     var g=f.bind({x:1},2);
+     g(3);//=6
+
+
+     //检测一个对象是否是真正的函数对象
+     function isFuntion(x){
+         return Object.prototype.toString.call(x)==="[object Function]";
+     }
+     
+    </script>
+    <title>无标题文档</title>
+</head>
+<body>
+</body>
+</html>

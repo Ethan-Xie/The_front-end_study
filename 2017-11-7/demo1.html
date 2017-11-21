@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+    console.log(factorial(3));
+    //=============函数的声明
+        //1.函数声明语句
+        function factorial(x){
+            if(x<=1) return 1;
+            return x*factorial(x-1);
+        }
+        
+
+        //2.函数表达式:函数名是可选的
+        var square = function(x) {return x*x}
+        //这种相对于上面这种，可以包含名称，这在递归是很有用
+        var f=function fact(x){
+            if(x<=1) return 1;
+            else return x*fact(x-1);
+        }
+        //函数表达式也可以作为参数传递给其它函数
+        //data.sort(function(a,b){return a-b;});
+
+        //函数表达式有时定义后立即调用
+        var tensquared = (function(x) {return x*x}(10));
+        console.log(tensquared);
+
+        //==========2.javascript语言中，函数支持嵌套在其它函数里,如：
+        function hypotenuse(a,b)
+        {
+            function square(x){
+                return x*x;
+            }
+            return Math.sqrt(square(x)+square(b));
+        }
+        
+
+        //========函数的调用
+        function printprops(o){
+            for(var p in o){
+                console.log(p+":"+o[p]+"\n");
+            }
+        }
+        printprops({x:1});//=>x:1
+        var total=factorial(3);
+
+        //=========方法的调用
+        var calculator={
+            operand1:1,
+            operand2:1,
+            add:function()
+            {
+                this.result=this.operand1+this.operand2;
+            }
+        }
+        console.log(calculator.result);//undefine ,测试
+        console.log(calculator.add());//无返回值，undefine ,这个方法调用计算1+1的结果
+        console.log(calculator.result);//=》2
+        //方法调用可能包括更复杂的属性表达式
+        // customer.surname.toUppCase();//调用cusomer.surname的方法
+         //f().m();//在f()调用结束后，继续调用返回值的方法m()
+
+         //定义并调用一个函数，来确定当前脚本运行时是否为严格模式
+         var strict=(function(){return !this;}());
+         console.log(strict);//=>false
+
+         //self保存this
+         var o={
+             m:function(){
+                 var temp=1;
+                 var self=this;
+                 console.log(this===o);//=>true
+                 f();
+
+                 function f(){
+                     console.log(this===o);//false this的值不是全局对象（非严格模式下），就是undefined（严格模式下）
+                     console.log(self===o);//true
+                     console.log(temp++);
+                 }
+             }
+         }
+         o.m();
+
+         //作为值的函数
+         var a=[function(x) {return x*x},20];
+         console.log(a[0](a[1]));
+         console.log(Math.pow);
+    </script>
+    <title>无标题文档</title>
+</head>
+<body>
+</body>
+</html>

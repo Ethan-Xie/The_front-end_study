@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+         class People{
+            constructor(name){
+                this.name=name;
+                }
+                getName(){
+                return this.name;
+                }
+            }
+            
+            class Black extends People{
+                constructor(name){
+                super(name);
+                }
+                speak(){
+                return " i am black";
+                }
+            
+            }
+            
+        var B1=new Black;
+        console.log(B1.speak());
+
+        
+      function Person(name, age, sal){
+        // 公开
+        this.name = name;
+        // 私有
+        var age = age;
+        var salary = sal;
+        this.abc=function(){
+             document.write("----<br/>"+age +"----<br/>"); //这里不能加this
+          }
+
+      }
+      var p1 = new Person('xie', 20, 10000);
+      document.write(p1.name +"----"+ p1.age); //xie----undefined
+      p1.abc();
+
+    console.log("12a"<14);//运用的是number函数转义法则  NaN与任何数比较。都是false
+    
+    
+    var o={
+        name:"xie",
+    }
+      function test(o){
+          o.name="ji";
+      }
+    test(o);
+   console.log(o.name);//引用传递    但在javascript中，字符串不是引用传递
+
+   var numbers= [1,2,3,4,5,6,7];
+   var filterResult=numbers.filter(function(item,index,array){
+       return(item>2);
+   })
+   console.log(filterResult);//
+
+   var value=[1,2,3,4,5];
+   var sum = value.reduce(function(prev,cur,index,array){
+       return prev+cur;
+   })
+   console.log(sum);//15
+
+   console.log((new String("hello javascript")));//这个是按对象存储
+   console.log((("hello javascript")));
+
+     
+    </script>
+    <title>无标题文档</title>
+</head>
+<body>
+</body>
+</html>

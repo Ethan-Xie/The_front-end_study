@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+        let o={one:1,two:2,three:3}
+        for(let p in o) {
+            console.log(p);//=>one two three
+            console.log(o[p]);
+            } 
+        //console.log(p);//会报错
+        let array=['one','two','three'];
+        for(let p in array) {
+            console.log(p); //=>0,1 2
+            console.log(array[p]);
+            } 
+       // foreach(let v in o) console.log(v);
+       console.log(1==true);//true
+       console.log(1===true);//false
+       console.log((0.1+0.2)==0.5);//false
+    
+
+    </script>
+    <title>无标题文档</title>
+</head>
+<body>
+</body>
+</html>

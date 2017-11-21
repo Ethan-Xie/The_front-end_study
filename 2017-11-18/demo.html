@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+         //5. 原型构造组合模式，
+        function Person (name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        Person.prototype = {
+            hobby: ['running','football'],
+            sayName: function () { alert(this.name); },
+            sayAge: function () { alert(this.age); }
+        };
+        var p1 = new Person('Jack', 20); 
+        console.log(p1);
+        //p1:'Jack',20; __proto__: ['running','football'],sayName,sayAge
+        var p2 = new Person('Mark', 18); 
+        //p1:'Mark',18;__proto__: ['running','football'],sayName,sayAge
+
+
+        //继承
+        function Mother(){
+          this.fair="red";
+          this.color="color";
+          this.arr=['one','two',"three"];
+        }
+        Mother.prototype.getFair=function(){
+            return this.fair;
+        }
+
+        function Son(){
+            this.sex="boy";
+            this.fair="black";
+            this.arr=['one','two'];
+        }
+       //继承要先继承，如果先定义getSex属性，会被覆盖。
+        Son.prototype=new Mother();
+        Son.prototype.getSex=function(){
+            return this.sex;
+        }
+        Son.prototype.arr=['one'];
+        var human=new Son();
+        console.log(human.getSex());
+        console.log(human);
+        console.log(new Mother);//未实例化的话，会返回function
+        //确认关系
+        console.log(human instanceof Son);
+        console.log(human instanceof Mother);
+
+        function GrandSon(){
+            this.sex="girl";
+           // this.fair="gard";
+           this.arr2=['a'];
+        }
+       //继承要先继承，如果先定义getSex属性，会被覆盖。
+       GrandSon.prototype=new Son();
+       GrandSon.prototype.getSex=function(){
+            return this.arr;
+        }
+        var gSon=new GrandSon();
+        var gSon2=new GrandSon();
+        console.log(gSon.getSex());//["one", "two"]
+        gSon.arr.push("mode");
+        console.log(gSon2.getSex()); //["one", "two", "mode"]
+
+        console.log(gSon.arr2);//["one", "two"]
+        gSon.arr2.push("mode");
+        console.log(gSon.arr2);
+        console.log(gSon2.arr2); 
+
+        //借用构造函数方法，伪造对象，经典继承
+        function father(name){
+            this.name=name;
+            this.color=["1","2"];
+        }
+        father.prototype.sayName=function(){
+            console.log(this.name);
+        }
+
+        function boy(name,age){
+            //继承了father
+            father.call(this,name);
+            this.age=age;
+        }
+        boy.prototype=new father();
+        boy.prototype.sayAge=function(){
+            console.log(this.age);
+        }
+        var boy1=new boy('ethan','21');
+        var boy2=new boy('ethan2','22');
+        
+        boy1.color.push("bark");
+        console.log(boy1.color);
+        boy1.sayAge();
+        boy1.sayName();
+        console.log(boy2.color);
+        boy2.sayAge();
+        boy2.sayName();
+        /*结果为：
+        demo.html:88 ["1", "2", "bark"]
+        demo.html:89 21
+        demo.html:79 ethan
+        demo.html:97 ["1", "2"]0: "1"1: "2"length: 2__proto__: Array[0]
+        demo.html:89 22
+        demo.html:79 ethan2
+        */
+
+        //寄生组合式继承
+        function Super(name){
+            this.name=name;
+            this.colors=['cat','dog'];
+        }
+        Super.prototype.sayName=function(){
+            console.log(this.colors);
+        }
+        function Sub(name,age){
+            Super.call(this,name);//调用了一次super的构造代码2
+            thisf.age=age;
+        }
+        Sub.prototype=new Super();//调用了一次super的构造代码1
+        sub.prototype.constructor=Sub;
+        Sub.prototype.age=function(){
+            console.log(this.age);
+        }
+        
+        // 寄生组合式的继承，最简单的实现形势。
+        function inheritPrototype(son,father){
+            var prototype=object(father.prototype);
+            prototype.constructor=son;
+            son.prototype=prototype;
+        }
+
+
+        function Super(name){
+            this.name=name;
+            this.colors=['cat','dog'];
+        }
+        Super.prototype.sayName=function(){
+            console.log(this.colors);
+        }
+        function Sub(name,age){
+            Super.call(this,name);//调用了一次super的构造代码2
+            thisf.age=age;
+        }
+       // Sub.prototype=new Super();//调用了一次super的构造代码1
+        //sub.prototype.constructor=Sub;
+        inheritPrototype(Sub,Super);
+        Sub.prototype.age=function(){
+            console.log(this.age);
+        }
+    </script>
+    <title>无标题文档</title>
+</head>
+<body>
+</body>
+</html>

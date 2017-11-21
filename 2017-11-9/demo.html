@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+        //正则表达式
+        //等价于：var box=/box/igm;
+        //i:忽略字母大小写，g:全局匹配
+        var box= new RegExp("box","igm");
+
+        var pattern = /[a-z]+\S*(\d+?)/;
+        var str = 'xiejisen我们66!';
+        console.log(pattern.exec(str));
+
+        //用中文半角引号替换英文引号，同时保持引号内的内容保存不变
+        var quote=/"[^"]*"/;
+        //text.replace(quote,'“$1”')
+
+        var str='thisisbox';
+        var pattern2=/box/;
+        console.log((str.search(pattern2)));//6
+
+        var str='thisisbox,a box';
+        var pattern2=/box/;
+        console.log((str.split(pattern2)));//Array[3]  0:"thisis"  1:",a "   2:""
+    </script>
+    <title>无标题文档</title>
+</head>
+<body>
+</body>
+</html>

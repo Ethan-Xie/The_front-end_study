@@ -1,0 +1,143 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+         
+        //Date 类型
+        var now = new Date();
+        console.log(now);//Wed Nov 15 2017 16:52:52 GMT+0800 (中国标准时间)
+         now = new Date(Date.parse("11/15/2017"));//除了这种格式还有：January 12，2017
+        console.log(now);//Wed Nov 15 2017 00:00:00 GMT+0800 (中国标准时间)
+        now = new Date(Date.parse("Date.UTC(2015,10,5,17,55,55)"));//表示2015年11月5日下午5h 55min 55s
+        //利用date的构造函数
+        var now2 =new Date(2000,0);
+        console.log(now2);//Sat Jan 01 2000 00:00:00 GMT+0800 (中国标准时间)
+        var now2 =new Date(2015,10,5,17,55,55);
+        console.log(now2);//Thu Nov 05 2015 17:55:55 GMT+0800 (中国标准时间)
+
+        //记录运行时间
+        var start = Date.now();
+        //需测试的代码
+        //取得停止的时间
+        var stop=Date.now();
+        var result = stop - start;
+        
+        //date 也继承了date的函数
+       // toLocalString   toString  valueOf
+
+       //object
+       function outer(){
+           inner();
+       }
+       function inner(){
+           console.log(arguments.callee.caller);
+       }
+       outer();//console显示out函数
+       //严格模式下，caller 与 callee  都会导致错误，这些属性始终是undefined
+
+       //函数的属性与方法 length（注意与argument的区别）--prototype
+       var s1="hello world";
+       var s1=function(){
+       };
+       s1.color="red";
+       console.log(s1.color);
+
+
+       //GLObal函数
+       var url="https://www.axie.cc/#test我";
+       console.log(encodeURIComponent(url));
+       console.log(encodeURI(url));
+
+       console.log(Math.random());//0.2200039572771555
+       //所以可以取值
+       function selectRange(min,max){
+           return Math.floor(Math.random()*(max-min+1)+min);
+       }
+       console.log(selectRange(2,9));
+
+
+      var person={
+      };
+      Object.defineProperty(person,"name",{
+          writable:false,
+          value:"ethan"
+      });
+      console.log(person.name);//"ethan"
+      person.name="xie";
+      console.log(person.name);//"ethan"
+
+      var book={
+          _year:2004,
+          edition:1
+      }
+      Object.defineProperty(book, "year", {
+          get:function(){
+              return this._year;
+          },
+          set:function(newyear){
+              if(newyear>2004){
+                  this._year=newyear;
+                  this.edition=newyear-2004;
+              }
+          }
+      })
+      book.year=2015;
+      console.log(book.edition);//11
+
+      //利用上面的方式，定义多个属性，可以使用
+      Object.defineProperties(book,{
+          _year:{
+              value:2017
+          },
+          edition:{
+              value:1
+          },
+          year:{
+            get:function(){
+              return this._year;
+            },
+            set:function(newyear){
+                if(newyear>2004){
+                    this._year=newyear;
+                    this.edition=newyear-2004;
+                }
+            }
+          }
+      })
+
+      //读取属性的特性
+      var descriptor=Object.getOwnPropertyDescriptor(book,"_year");
+      console.log(descriptor.value);//2017
+      console.log(descriptor.configurable);//false
+
+
+      function Person(name,age,job){
+                    this.name=name;
+                    this.age=age;
+                    this.job=job;
+                    this.sayname=sayname;
+                    }
+
+
+                    function sayname(){
+                    alert(this.name);
+                    }
+
+
+                    var person1=new Person("than",21,"software engineer");
+                    var person2=new Person("than2",21,"software engineer");
+                    person1.age="22";
+                    person1.sayname=function(){
+                                console.log("is edited");
+                            }
+        console.log(person1.age);//21
+        console.log(person2.age);//22
+        console.log(person1.sayname());
+        console.log(person2.sayname());
+    </script>
+    <title>无标题文档</title>
+</head>
+<body>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="text/javascript">
+       //创建函数
+
+       //工厂模式
+       function createPerson(name,age,job){
+           var o = new Object;
+           o.name=name;
+           o.age=age;
+           o.job=job;
+           o.sayname=function(){
+               console.log(this.name);
+           }
+           return o;
+       }
+       var person3=createPerson("than",21,"software engineer");
+       var person4=createPerson("than2",21,"software engineer");
+       
+       //构造函数的模式
+       function Person(name,age,job){
+           this.name=name;
+           this.age=age;
+           this.job=job;
+           this.sayname=function(){
+               console.log(this.name);
+           }
+       }
+       var person1=new Person("than",21,"software engineer");
+       var person2=new Person("than2",21,"software engineer");
+       var test=function(){
+           return Person("than",21,"software engineer");
+       }
+       console.log(test());
+       console.log(person1.sayname);
+       console.log(person1.sayname);
+       console.log(person1.sayname==person2.sayname);
+       console.log(person1.constructor == Person);
+       console.log(person2.constructor == Person);
+       console.log(person1 instanceof Object);
+       console.log(person2 instanceof Person);
+
+       //把构造函数，当作函数
+       person2.sayname();//ethan2
+       //当作普通函数调用；
+       Person("window",21,"software engineer");
+       window.sayname();//window
+
+       //给另一个作用域使用。
+       var o=new Object();
+       console.log(Person.call(o,"object",21,"software engineer"));
+       o.sayname();
+
+      //原型模式
+      function human(){caree:"studer";}
+      human.prototype.name="ethan";
+      human.prototype.age="21";
+      human.prototype.sayname=function(){
+               console.log("is prototype");
+           }
+        var human1=new human();
+        var human2=new human();
+        human1.age="22";
+        human1.sayname=function(){
+               console.log("is edited");
+           }
+           console.log(human1);
+        console.log(human1.age);//21
+        delete human1.age;
+        console.log(human1.age);//21
+        console.log(human1.hasOwnProperty("name"));//=   来自实例false  留在原型true
+        
+        console.log(human2.age);//22
+        console.log(human1.sayname());//is edit 
+        console.log(human2.sayname());//is prototype
+        console.log(human1.sayname == human1.sayname);//true
+
+        console.log(human.prototype.isPrototypeOf(human1));
+        console.log(Object.getPrototypeOf(human1).name);
+
+        //所有原生引用模型（object array string）  ;
+        String.prototype.startsWith=function(text){
+            return this.indexOf(text)==0;
+        };
+        var msg="hello";
+        console.log(msg.startsWith("hello"));
+    </script>
+    <title>无标题文档</title>
+</head>
+<body>
+</body>
+</html>
