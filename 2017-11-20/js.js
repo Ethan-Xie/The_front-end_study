@@ -1,3 +1,5 @@
+
 window.onload=function(){
-    document.write("hello ");
+    console.log("onload+javascript")
  };
+ console.log("defer+javascript");
