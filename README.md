@@ -4,4 +4,28 @@
 
 ## 十三章：web浏览器中的javascript（对应2017-11-21）
 参考书：[JavaScript权威指南(第6版)] P309-336
-
+```
+1 · 比如通过以下方面入手：
+1.1 · async && defer
+1.2 · 代码：异步载入，并执行脚本
+2 · javascript的单线程模型
+3 · 三者的执行顺序 head里 & body后 & defer
+4 · 三者的执行顺序 head里 & body后 & async
+5 · document.readyState：
+6 · internet Explorer里的条件注释
+7 · 安全性
+8 · 防止xss攻击方式：
+9 · 拒绝服务攻击
+```
+## javascript--->window 对象（对应2017-11-22）
+参考书：[JavaScript权威指南(第6版)] P336-364
+```
+1 · 计时器:setTimeout & setInterval
+2 · 浏览器定位和导航 window.location
+2.1 · 载入新的文档：
+3 · 浏览历史
+4 · 浏览器和屏幕信息navigator screen
+4.1 · screen对象
+5 · 打开open、关闭close窗口
+6 · 选取文档的元素
+```

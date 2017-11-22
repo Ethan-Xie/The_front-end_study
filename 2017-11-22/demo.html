@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <script  type="text/javascript">
+            //setInterval(updateclock,60000);//没60s调用一次updateclock
+            //定时器  
+            function invoke(f,start,interval,end){
+                if(!start) {
+                    start= 0;
+                };
+                if(arguments.length<=2){
+                    setTimeout(f,start);
+                }else{
+                    setTimeout(repeat, start);//函数名
+                    function repeat(){
+                        var h=setInterval(f,interval);
+                        if(end) setTimeout(function(){
+                            clearInterval(h);
+                        }, end);
+                    }
+                }
+            }
+            //循环function 函数，2秒后开始，频率为1s，5秒后结束。
+            invoke(function(){console.log("test")},2000,1000,5000);//==>5*"test"
+
+            //用来解析来自url的查询串中的，name=value 参数对，它将name=value 对存储在一个对象的参数属性中，并返回该对象
+            /*var args=urlArgs();
+            *var q=args.q || "";
+            * var n=args.n ?parseInt(args.n) : 10 ;
+            */
+            function urlArgs()
+            {
+                var args={};
+                var query=location.search.substring(1);
+                var pairs=query.split("&");
+                for(var i=0;i<pairs.length;i++){
+                    var pos=pairs[i].indexOf('=');
+                    if(pos==-1){continue;};//--->==
+                    var name=pairs[i].substring(0,pos);
+                    var value=pairs[i].substring(pos+1);
+                    value=decodeURIComponent(value);
+                    args[name]=value;
+                }
+                return args;
+            }
+            console.log(urlArgs());
+
+            //为客户端嗅探定义browser.name 和 browser.version
+            var browser = (function() {
+                    var s = navigator.userAgent.toLowerCase();
+                    var match = /(webkit)[ \/]([\w.]+)/.exec(s) ||
+                    /(opera)(?:.*version)?[ \/]([\w.]+)/.exec(s) ||
+                    /(msie) ([\w.]+)/.exec(s) ||
+                    !/compatible/.test(s) && /(mozilla)(?:.*? rv:([\w.]+))?/.exec(s) ||
+                    [];
+                    return { name: match[1] || "", version: match[2] || "0" };
+                }());
+                console.log(browser);//Object {name: "webkit", version: "537.36"}
+                //webkit---chrome/safari     opera   mozilla---firefox   mise:ie
+
+                //对话框
+                do{
+                    var name=prompt("你的名字：");
+                    var correct=confirm("你输入的名字："+name+",是正确的吗");
+                }while(!correct);
+                alert("hello, "+name);
+
+                //通过id获取多个元素
+                function getElements(/*ids...*/){
+                    var elements={};
+                    for(var i=0;i<arguments.length;i++){
+                        var id=arguments[i];
+                        var ele=document.getElementById(id);
+                        if(ele == null){
+                            throw new Error("no element with id:"+id);
+                        }
+                        elements[id]=ele;
+                    }
+                    return elements;
+                }
+     </script>
+    <title>无标题文档</title>
+</head>
+<body>
+    <h1>测试文档</h1>
+</body>
+<script  type="text/javascript">
+
+  </script>
+</html>
+
