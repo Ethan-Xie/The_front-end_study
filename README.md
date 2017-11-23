@@ -29,3 +29,18 @@
 5 · 打开open、关闭close窗口
 6 · 选取文档的元素
 ```
+
+## javascript--->选取文档元素（对应2017-11-23）
+```
+· 选取文档的元素
+0.1 · 用指定的name属性
+0.2 · 用指定的tagName
+1 · nav--id="nav" div---所以标签 .warning=value---“class包含value的元素”
+2 · log span //后代元素表达方式：例：#main p{ color:red; }
+3 · 元素
+· querySelector() querySelectorAll() ---等效的方法---$()
+· 获取与设置标准的HTML属性
+· 获取与设置非标准的HTML属性
+· 元素内容的选择：html表示，纯文本，元素内容的树状表示
+· 创建与插入，删除节点
+```

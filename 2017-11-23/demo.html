@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+     <script  type="text/javascript">
+           
+     </script>
+    <title>无标题文档</title>
+</head>
+<body>
+    <p>测试 <i>h22 <b>h333</b>22</i>文档</p>
+    <p>hello</p>
+    <p>world</p>
+
+    <form action="www.baidu.com"></form>
+    <img src="axie.png" width="50px" alt="alterror">
+</body>
+<script  type="text/javascript">
+ var content=Array.prototype.map.call(document.getElementsByTagName("p"),function(e){return e.innerHTML;})
+ console.log(content);
+
+var f=document.forms[0];//<form action="https://www.axie.cc" method="POST"></form>
+console.log(typeof(f));//object
+f.action="https://www.axie.cc";
+f.method= "POST";
+console.log(f.action);//https://www.axie.cc
+
+var image=document.images[0];
+var width=parseInt(image.getAttribute("width"));
+image.setAttribute("class","thumbnail");
+
+var para=document.getElementsByTagName("p")[0];
+console.log(para.textContent);
+console.log(para.innerText);
+  </script>
+</html>
+
