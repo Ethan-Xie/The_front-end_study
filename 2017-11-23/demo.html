@@ -10,6 +10,7 @@
 </head>
 <body>
     <p>测试 <i>h22 <b>h333</b>22</i>文档</p>
+    <div>测试 <div>h22 <div>h333</div>22</div>文档</div>
     <p>hello</p>
     <p>world</p>
 
@@ -30,9 +31,15 @@ var image=document.images[0];
 var width=parseInt(image.getAttribute("width"));
 image.setAttribute("class","thumbnail");
 
-var para=document.getElementsByTagName("p")[0];
-console.log(para.textContent);
-console.log(para.innerText);
+var para=document.getElementsByTagName("div")[0].parentNode;
+console.log(para);
+//console.log(para.textContent);
+//console.log(para.innerText);
+
+var newnode = document.createTextNode("text<p>fdo</p> node content");
+console.log(newnode);
+
+console.log(document.body.childNodes);
   </script>
 </html>
 
