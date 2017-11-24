@@ -32,15 +32,13 @@
 
 ## javascript--->选取文档元素（对应2017-11-23）
 ```
-· 选取文档的元素
-0.1 · 用指定的name属性
-0.2 · 用指定的tagName
-1 · nav--id="nav" div---所以标签 .warning=value---“class包含value的元素”
-2 · log span //后代元素表达方式：例：#main p{ color:red; }
-3 · 元素
-· querySelector() querySelectorAll() ---等效的方法---$()
-· 获取与设置标准的HTML属性
-· 获取与设置非标准的HTML属性
-· 元素内容的选择：html表示，纯文本，元素内容的树状表示
-· 创建与插入，删除节点
+1 · 选取文档的元素
+2 · css相关知识；
+3 · querySelector() querySelectorAll() ---等效的方法---$()
+4 · 获取与设置标准的HTML属性
+5 · 获取与设置非标准的HTML属性
+6 · 元素内容的选择：html表示，纯文本，元素内容的树状表示
+7 · 结点函数
+8 · 创建与插入，删除节点
+9 · 表格的行排序：P383
 ```

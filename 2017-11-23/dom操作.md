@@ -34,15 +34,15 @@ Array[2]  0: "hello"  1: "world"   length: 2   __proto__: Array[0]
 - 用制定class:getElementsByClassName();
 
 - 用指定的css的选择器
-**css**相关知识；
-- #nav--id="nav" div---所以<div>标签 .warning=value---“class包含value的元素”  
+##**css相关知识；**
+- 、#nav--id="nav" div---所以<div>标签 .warning=value---“class包含value的元素”  
 - p[lang="fr"]--如:<p lang="fr">  *[name="x"]  所有包含name=“x”的元素
 - span.fatal.error   //class包含 fatal/error 所有<span>元素
 - span[lang="fr"].warning   //所有class包含 warning的<span> 元素
-- #log  span  //后代元素表达方式：例：#main p{ color:red; }
+- 、#log  span  //后代元素表达方式：例：#main p{ color:red; }
 - 子元素：表达方式：例：#main>p{ color:red; }
 - 后代元素包括子元素，孙子元素，重孙子元素.........
-- body>h1:first-child  body元素的第一个<h1>元素
+- body>h1:first-child  body元素的第一个\h1\元素
 - div，#log  所有<div>的元素的第一个h1元素
 
 
@@ -83,6 +83,8 @@ console.log(para.textContent);
 console.log(para.innerText);
 ```
 
+
+
 ```
 if(obtn.textContent){
             obtn.textContent=="登录"?oLoginHeader_spans[0].id="login-selected":oLoginHeader_spans[1].id="login-selected";
@@ -111,7 +113,18 @@ function textContent(e) {
 - parentNode,childNodes,firstChild,lastChild,nextSibling,previoursSibling。document.childNodes[0].childNodes[1]
 - nodeType,nodeValue,nodeName。
 - firstElementChild,lastElementChild,nextElementSibling,previousElementSibling。
-> text和comment结点没有children属性，它意味着上述Node.parentNode属性不可返回text与comment结点，任何element的parentNode总是另一个element，或者追溯到document或documentFragment
+- text和comment结点没有children属性，它意味着上述Node.parentNode属性不可返回text与comment结点，任何element的parentNode总是另一个element，或者追溯到document或documentFragment
+
+```
+var para=document.getElementsByTagName("div")[0].parentNode;
+
+//插入指定位置。
+function insertAt(parent,child,n){
+    if(n<0 || n>parent.childNodes.length){throw new Error("invalid index")}
+    else if(n == parent.childNodes.length) parent.appendChild(child);
+    else{parent.insertBefore(child,parent.child[n])}
+}
+```
 
 ## 创建与插入，删除节点
 
@@ -123,6 +136,12 @@ function loadasync(url){
             head.appendChild(s);//添加<head>中
            //console.log(s);
         }
+
+
+createElement,createText,appendChild((insertBefore))
+createText("text<p>哈哈</p>hello");
 ```
 
+
+## 表格的行排序：P383
 

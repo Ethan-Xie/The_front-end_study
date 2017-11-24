@@ -40,6 +40,12 @@ var newnode = document.createTextNode("text<p>fdo</p> node content");
 console.log(newnode);
 
 console.log(document.body.childNodes);
+
+function insertAt(parent,child,n){
+    if(n<0 || n>parent.childNodes.length){throw new Error("invalid index")}
+    else if(n == parent.childNodes.length) parent.appendChild(child);
+    else{parent.insertBefore(child,parent.child[n])}
+}
   </script>
 </html>
 
