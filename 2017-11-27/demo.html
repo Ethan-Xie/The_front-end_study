@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <script  type="text/javascript">
+           
+     </script>
+    <title>无标题文档</title>
+</head>
+<body>
+    <p>测试 <i>h22 <b>h333</b>22</i>文档</p>
+    <div>测试 <div>h22 <div>h333</div>22</div>文档</div>
+    <p>hello</p>
+    <p>world</p>
+
+    <form action="www.baidu.com"></form>
+    <img src="axie.png" width="50px" alt="alterror">
+</body>
+<script  type="text/javascript">
+    var shipping_method;
+    for(var i=0;i<methods.length;i++){
+        if(methods[i].checked) shipping_method=methods[i].value;
+    }
+
+//submit/reset的事件阻止
+onreset="return confirm('are you sure');";//(放在form 属性里)
+
+//refer 的用法
+if(document.referrer.indexOf("http://www.google.com/search?")== 0)
+{
+    var args=document.referrer.substring(ref.indexOf("?")+1).split("&");
+    for(var i=0;i<args.length;i++){
+        if(args[i].substring(0,2)=="q=="){
+            console.log("welcome goole user:"+unescape(args[i].substring(2))).replace("+"," ");
+        }
+    }
+}
+
+  </script>
+</html>
+

@@ -88,3 +88,20 @@ javascript:void setInterval(function {scrollBy(0,10),200});
 
 ##  scrollIntoView 
 scrollIntoView的行为与设置的window.location.hash 为一个命名描点，（<a name="">） 的名字浏览器的产生的行为类似
+
+## 关于尺寸，位置，更多信息
+offsetHeight:与clientHeight（返回值也不包含滚动条，但对于内联元素，它始终返回0） ：它们不包含边框大小，只包含内容与内边距，
+offsetWidth
+offsetLeft
+offsetTop
+offsetParent
+
+clientHeight:内边距+任何溢出内容的尺寸
+clientWidth
+clientLeft：通常用不到
+clientTop：通常用不到
+
+scrollWidth：滚动条的位置
+scrollHeight
+scrollLeft：这两个都是可写属性，通过他来让页面滚动。
+scrollTop
