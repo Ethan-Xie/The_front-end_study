@@ -1,0 +1,91 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <script  type="text/javascript" src="../../jquery-3.1.0.js"></script>
+      <link rel="stylesheet" type="text/css" href="theme.css" /> 
+    <title>无标题文档</title>
+    <style>
+    
+    </style>
+</head>
+<body>
+    用户名：<input type="text" name="username"  id="username">
+    <input type="text" id="myres" style="border-width:0;color:red;" /><br/>
+    <input type="button" value="检测" onclick="checkName ()" /><br/>
+    <input type="text" style="border:1px;" >
+    <input  type="button" value="登录" />
+   
+</body>
+<script  type="text/javascript">
+  	var bodyscript=$("script",document.body);
+  	bodyscript.selector;//script
+  	bodyscript.context;//document.body
+  	bodyscript.jquery;//"3.1.0"
+  	
+  	//给文档中的div元素标号，从开始到div#last(包括边界值)
+  	$("body").each(function(idx){
+  		$(this).prepend(idx+": ");;
+  		if(this.id === "last") return false;
+  	})
+  	
+  	$("form").attr(action);//获取和设置form的action属性
+  	$("#icon").attr("src","icon.gif");//设置id为icon的属性
+  	$("#banner").attr({"src","icon.gif","src","icon.gif"});设置多个属性
+  	
+  	$("a").attr("target","_blank");
+  	$("a").attr("target",function(){
+  		//飞站内链接在新窗口中打开。
+  		if(this.host==location.host) return "_self"
+  		else return "_blank";
+  	});
+  	$("a").attr({target:Function(){}});//可以像这样传入函数。
+  	$("a").removeClassAttr("target");//让所有链接在本窗口中打开
+  	
+  	
+  	
+  	//添加css类
+  	$("h1").addClass("classname");//给所有h1元素添加一个类
+  	$("h1+p").addClass("first second");//给所有h1元素添加两个类
+  	$("div").addClass(function(n){
+  		return "test"+(n%3+1);//间隔
+  	});
+  	
+  	//删除css类
+  	$("h1").removeClass("classname");//给所有h1元素删除一个类
+  	$("h1+p").removeClass("first second");//给所有h1元素删除两个类
+  	$("div").removeClass(function(n){
+  		return "test"+(n%3+1);//间隔
+  	});
+  	$("div").removeClass();//删除所有
+  	
+  	//切换css类
+  	$("h1").toggleClass("classname");//该类存在则添加，不存在则删除
+  	$("h1+p").toggleClass("first second");//同时操作两个类
+  	$("div").toggleClass(function(n){
+  		return "test"+n);//函数切换
+  	});
+  	
+  	//检测 css类
+  	$("p").hasClass("first");//是否所有元素都有该类
+  	$("p").is(".first");//功能和上面一致，注意逗号
+  	$("p").is(".first.second");//is 比hasclass()更灵活
+  	
+  	
+  	
+  	$("#username").var();//获取文本域，《select》
+  	$("input:radio[name=ship]:check").val();//获取选中的单选按钮的值
+  	$("#email").val("invalid email address");//给文本域设置值
+  	$("input:checkbox").val(['opt1',"opt2"]);//选中带有这些名字或值的复选框
+  	$("input:text").val(function(){
+  		return this.defaultValue;
+  	});
+  	
+  	var title=$("head title").text();//获得文档标题
+  	var headline=$("h1").html();//获得第一个h1的html
+  	$("h1").text(function(n,current){//给每个标题添加章节号
+  		return "$"+(n+1)+":"+current;
+  	};
+  	
+</script>
+</html>
