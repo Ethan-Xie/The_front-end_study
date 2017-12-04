@@ -1,0 +1,78 @@
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript">
+
+</script>
+<style type="text/css">
+</style>
+</head>
+<body>
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">饭</div>
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">吃</div>
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">家</div>
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">回</div>
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">你</div>
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">带</div>
+<div id="back-up"  style="border:1px solid red;height:100px;width:15px;position:fixed;cursor:pointer;right:10px;bottom:30px;">返回顶部</div>
+<script>
+	//滚动到底部
+window.scrollTo(0,document.body.scrollHeight);
+
+(function(){
+	
+	//类的拓展
+SlideTop.prototype={
+    constructor:SlideTop,
+    init:function(){        //初始化函数
+        this.autoPlay();
+    },
+     autoPlay:function(){   
+        //作用域
+        var self=this;
+        //console.log("我是在setinterval中");
+        //如果运用call apply只可以运行一次
+       timer=setInterval(self.runToTop.bind(self),1);
+
+    },
+    runToTop:function(){
+    		var currentPosition;
+    		console.log("我是在循环函数中");
+				currentPosition=document.documentElement.scrollTop || document.body.scrollTop;
+				currentPosition-=this.speed; //speed变量
+					if(currentPosition>0)
+					{
+						window.scrollTo(0,currentPosition);
+					}else{
+						window.scrollTo(0,0);
+						clearInterval(timer);
+					}
+			}
+   
+}
+		 //构造函数
+	function SlideTop(speed){
+	     this.speed=speed;
+	     var timer;
+	     //this.autoPlay();
+	    
+	}
+
+	
+	//绑定事件
+	document.getElementById('back-up').onclick=function(){
+		console.log("to do runing");
+		//实例化这个滚动类。
+		//var top=new SlideTop(20);
+		new SlideTop(20).init();
+	}
+	
+	
+})();
+
+
+
+</script>
+</body>
+</html> 
+

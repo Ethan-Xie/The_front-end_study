@@ -4,7 +4,7 @@
     <head>  
         <meta charset="utf-8" />  
         <title>CSS3选择器——2、层次选择器</title>  
-             <script  type="text/javascript" src="../jquery-3.1.0.js"></script>
+             <script  type="text/javascript" src="../../jquery-3.1.0.js"></script>
         <style type="text/css">  
             *{  
                 margin: 0px;  
@@ -12,13 +12,17 @@
             }  
             body{  
                 width: 300px;  
+                
                 margin: 0 auto;  
             }  
             div{  
                 margin: 5px;  
                 padding: 5px;  
                 border: 1px solid #ccc;  
-            }  
+            } 
+            body>div{
+            	height: 600px;;
+            } 
            /* div .active{  
 		    background-color: orange;  
 		}     */
@@ -31,6 +35,16 @@
 		.test3{  
 		    background-color: green;  
 		}     
+		
+		.scrollBox{
+			position: fixed;
+			left: 200px;
+			top: 200px;
+			z-index: 99;
+			width: 100px;
+			height: 100px;
+			background-color: #FF0000;
+		}
         </style>  
     </head>  
       
@@ -49,11 +63,32 @@
                   </div>  
              </div>  
         </div>  
-          
+      <footer class="scrollBox">点击我向下滚动一页</footer>   
     </body>  
   <script type="text/javascript">
   		$("div").addClass(function(n){
   		return "test"+(n%3+1);
-  	})
+  	});
+  	//根据页面来翻转
+  	function page(n){
+  		var w=$(window);
+ 			var pageSize=w.height();
+ 			console.log(pageSize);
+ 			var current=w.scrollTop();
+ 			console.log(current);
+ 			w.scrollTop(current+n*pageSize);
+  	}
+  	var count=0;
+  		$(".scrollBox").click(function(){
+  			count++;
+  			console.log(count);
+  			var currentPosition=document.documentElement.scrollTop || document.body.scrollTop;
+					if(currentPosition>=document.body.scrollHeight)
+					{
+						return false;
+					}
+  		page(count);
+  	});
+  	//page(3);
   </script>
 </html>  

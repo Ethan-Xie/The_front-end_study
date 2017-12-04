@@ -1,0 +1,58 @@
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<script type="text/javascript">
+
+</script>
+<style type="text/css">
+</style>
+</head>
+<body>
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">饭</div>
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">吃</div>
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">家</div>
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">回</div>
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">你</div>
+<div style="height:1000px;text-align:center;font-size:200px;font-weight:bold;">带</div>
+<div id="back-up"  style="border:1px solid red;height:100px;width:15px;position:fixed;cursor:pointer;right:10px;bottom:30px;">返回顶部</div>
+<script>
+
+	//(function(){})()
+	//var test=(function(){}())
+	 function test(){
+			var currentPosition,timer;
+			var speed=20;
+			function runToTop(){
+				currentPosition=document.documentElement.scrollTop || document.body.scrollTop;
+				currentPosition-=speed; //speed变量
+					if(currentPosition>0)
+					{
+						window.scrollTo(0,currentPosition);
+					}else{
+						window.scrollTo(0,0);
+						clearInterval(timer);
+					}
+			};
+			function   GoTop()
+			{
+				console.log("马上开始运行setIntval");
+					timer=setInterval("runToTop()",3000);
+			};
+		  return GoTop();
+		};
+	
+	window.scrollTo(0,document.body.scrollHeight);
+	//test();
+document.getElementById('back-up').onclick=function()
+				{
+				test();
+				}
+		/*
+		var hello=test;hello();hello();hello();
+		console.log(hello());
+		console.log(hello());
+		*/
+</script>
+</body>
+</html> 
+
