@@ -5,4 +5,4 @@
 - 点击红色方框自动翻页
 ## small wheels/SlideTop_no_pack.html：；缓慢滚动至头条（未封装）
 - 动态缓慢toTop
-## small wheels/SlideTop_pack.html 缓慢滚动至头条（封装）
+## small wheels/SlideTop_pack.html 缓慢滚动至头条（封装）,2017.12.02

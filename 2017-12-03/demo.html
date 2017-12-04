@@ -18,8 +18,59 @@
    
 </body>
 <script  type="text/javascript">
+	
+	//元素的四边的参数
  	var body=$("body");
- 
+  	var contentWidth=body.width();
+  	var paddingWidth=body.innerWidth();
+  	var borderWidth=body.outerWidth();
+  	var marginWidth=body.outerWidth(true);
+  	var padding=paddingWidth-contentWidth;
+  	var borders=borderWidth-paddingWidth;
+  	var margins=marginWidth-borderWidth;
   	
+  	//例子
+  	$("#log").append("<br/>"+message);//结尾处添加内容
+  	$("<br/>+message").appendTo("#log");
+  	
+  	$("h1").prepend("$");//开始处添加章节标识
+  	$(document.createTextNode("$")).prependTo("h1");
+  	
+  	$("h1").before("<hr>");//后面&前面
+  	$("h1").after("<hr>");
+  	$("<hr>").insertafter("h1");
+  	
+  	//这是另外一种
+  	$("h1").map(function(){
+  		return this.firstChild;
+  	}).before("$");
+  	
+  	//将h2替换为h1，保存内容不变
+  	$("h2").each(
+  		function(){
+  			var h2=$(this);
+  			h2.replaceWith("<h1>"+h2.html()+"</h1>");
+  		}
+  	);
+  	
+  	//复制元素
+  	//给文档结尾添加一个“linklist”,id的新div
+  	$(docment.body).append("<div id='linklist'><h1>list of links</h1></div>");
+  	//给所有文档中的链接复制到并插入到新div中
+  	$("a").clone().appendTo("#linklist");
+  	//在每个链接后面插入br,使其独立行显示
+  	$("#linklist>a").after("<br/>");
+  	//
+  	
+  	
+  	//包装
+  	$("h1").wrap(document.createElement("i"));//---><i><h1>...</i></h1>
+  	$("h1").wrap("<i/>");//---><i><h1>...</i></h1>...
+  	
+  	//将第一个段落包装在一个锚点与div中
+  	$("body>p:first").warp("<a name='load' ><div class='first'><div></a>");
+  	
+  	//将其它的段落包装在另一个div中
+  	$("body>p:not(:first)").wrap("<div class='rest'></div>");
 </script>
 </html>
