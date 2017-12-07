@@ -20,8 +20,17 @@
 </body>
 <script  type="text/javascript">
 	
-	//用淡出效果将所有图像隐藏，然后显示它们，接着向上滑动，在向下滑动
-	$('img').fadeOut(600).show(300),slideUp().slideToggle();
+	//当鼠标放到悬浮在图片上，图片变得不透明
+	$('img2').bind({
+		mouseover:function(){$(this).stop().fadeTo(300,1.0)},
+		mouseout:function(){$(this).stop().fadeTo(300,0.5)}
+	})
+	//对上面的优化，添加一个小延时，快速滑动可以不会影响
+	$('img').fadeTo(300,0.5);
+	$('img').bind({
+		mouseover:function(){$(this).stop(true).delay(100).fadeTo(300,1.0)},//停止正确的动画，在开始
+		mouseout:function(){$(this).stop(true).fadeTo(300,0.5)}
+	})
 	
 </script>
 </html>

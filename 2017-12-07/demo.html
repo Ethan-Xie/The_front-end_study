@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <script  type="text/javascript" src="../../jquery-3.1.0.js"></script>
+      <link rel="stylesheet" type="text/css" href="theme.css" /> 
+    <title>无标题文档</title>
+    <style>
+    
+    </style>
+</head>
+<body>
+    用户名：<input type="text" name="username"  id="username">
+    <input type="text" id="myres" style="border-width:0;color:red;" /><br/>
+    <input type="button" value="检测" onclick="checkName ()" /><br/>
+    <input type="text" style="border:1px;" >
+    <input  type="button" value="登录" /><br />
+   
+   <img src="//tvax1.sinaimg.cn/crop.0.0.996.996.180/0064W8SNly8fgem0vvtowj30ro0rotaj.jpg"  />
+</body>
+<script  type="text/javascript">
+	//用hide方法进行隐藏，
+	//实现方法一
+	
+	$('img').animated({width:"hide",height:"hide",opacity:"hide"},
+			{specialEasing:{width:"linear",height:"linear"}});
+			
+	//实现方法2
+	$('img').animated({width:["hide","linear"],height:["hide","linear"],opacity:"hide"});
+	
+	
+	//淡入显示一个元素，稍等片刻，设置一些文字，然后变化边框
+	$('#message').fadeIn().delay(200).queque(function(next){
+		$(this).text("hello world");//显示一些文字
+		next();//运行队列中的下一项。
+	}).animate({borderWidth:"+=10px;"});//将边框加粗
+	
+	
+	//ajax
+	$("#temp").load("html.html","name=ethan");//{name:ethan}
+	
+	jQuery.getScript('http://libs.baidu.com/jquery/1.11.3/jquery.min.js',function(){
+	 	console.log("hello");//使用加载的类库
+});
+//假设：data结果为：｛x:1,y:2｝
+jQuery.getJSON('data.json',function(){
+	//data为对象：｛x:1,y:2｝
+});
+
+//可以用以下代码来执行以下代码，来提交html，jQuery.param(),能处理更复杂的函数 
+$('#button').click(function(event){
+	$(this.form).load(
+		this.form.action,
+		$(this.form.serialize());//load，将表单数据，附加到表单url后面。
+		//事件
+		event.preventDefault();
+		this.disabled="disabled";
+	)
+})
+</script>
+</html>
