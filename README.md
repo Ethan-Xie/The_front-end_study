@@ -142,4 +142,29 @@
 1 · jQuery4
 1.1 · 动画的取消，延迟，队列
 2 · 队列
+3 · jquery中的ajax
+3.1 · 给它传入一个url，它会异步加载该URL的内容，然后将内容插入到每个选中的函数
+4 · ajax的工具函数
+4.1 · jquery.getScript('http://libs.baidu.com/jquery/1.11.3/jquery.min.js')
+4.2 · jQuery.getJSON()
+```
+##   jQuery5（对应2017-12-08）
+```
+1 · jQuery5
+· jQuery.get() & jQuery.post()
+· jQuery.ajax()函数
+· ajax事件
+· 工具函数
+1.1 · jQuery.browser
+1.2 · 其它
+· jQuery选择器
+· 效率比较
+2 · id>form#id
+· 组合选择器
+· 选择器组
+3 · p1,#p2:匹配id为p1和
+· 选取的方法
+· add()
+· 将选中的元素集，用做上下文
+· end/andself
 ```

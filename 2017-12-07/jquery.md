@@ -18,6 +18,7 @@ $('img').bind({
 ```
 # 队列
 - 每个元素的队列与其它元素的队列彼此独立，可以使用queque()方法对对列添加新 函数。
+
 ```
 	//用hide方法进行隐藏，
 	//实现方法一
@@ -25,7 +26,7 @@ $('img').bind({
 			{specialEasing:{width:"linear",height:"linear"}});
 			
 	//实现方法2
-	$('img').animated({width:["hide""linear"],height:["hide""linear"],opacity:"hide"});
+	$('img').animated({width:["hide","linear"],height:["hide","linear"],opacity:"hide"});
 	
 	
 	//淡入显示一个元素，稍等片刻，设置一些文字，然后变化边框
@@ -35,8 +36,9 @@ $('img').bind({
 	}).animate({borderWidth:"+=10px;"});//将边框加粗
 	
 	$(this).dequeue;//替代next()方法
+
 ```
-- queque,dequeque，clearQueue();
+queque,dequeque，clearQueue();
 
 # jquery中的ajax
 ## 给它传入一个url，它会异步加载该URL的内容，然后将内容插入到每个选中的函数
@@ -49,6 +51,7 @@ $("#temp").load("whether_report.html #temperature");
 ```
 - load后面还可以接收两个参数，第一个：数据可以追加到URL后面，如果是字符串？&，自动追加到，如果是对象，会用？&处理后
 - 另一个函数是回调函数，请求成功或未成功。每次调用都会传入三个参数：被加载的url完整文本，状态码字符串，以及加载改url的xmlhttpRequest对象
+ 
 ```
 //状态码
 success:成功完成
@@ -61,6 +64,7 @@ parsererror:请求成功，但jquery无法解析
 	$("#temp").load("html.html","name=ethan");//{name:ethan}
 	
 ```
+
 # ajax的工具函数
 ## jquery.getScript('http://libs.baidu.com/jquery/1.11.3/jquery.min.js')
 - jquery.getScript()函数的第一个函数是javascript文件的url，异步加载，然后在全局调用这个，第二个参数：加载和执行完成后调用一个回调的函数

@@ -1,0 +1,45 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <script  type="text/javascript" src="../../jquery.js"></script>
+      <link rel="stylesheet" type="text/css" href="theme.css" /> 
+    <title>无标题文档</title>
+    <style>
+    
+    </style>
+</head>
+<body>
+    用户名：<input type="text" name="username"  id="username">
+    <input type="text" id="myres" style="border-width:0;color:red;" /><br/>
+    <input type="button" value="检测" onclick="checkName ()" /><br/>
+    <input type="text" style="border:1px;" >
+    <input  type="button" value="登录" /><br />
+   
+   <img src="//tvax1.sinaimg.cn/crop.0.0.996.996.180/0064W8SNly8fgem0vvtowj30ro0rotaj.jpg"  />
+</body>
+<script  type="text/javascript">
+	
+	//参数还有：contentType,timeout,cache,ifModified,global
+	//不同阶段的调用函数:context,beforeSend,success,error,complete
+	//不常用的选项与钩子：async,dataFilter,jsonp,jsonpCallback
+	jQuery.ajax({
+		type:"GET",//http请求方法
+		url:url,//url
+		data:null,//null
+		dataType:"script",//ajax数据类型，当作脚本执行
+		success:callball//完成掉调用使用这个函数。
+	});
+	
+	//所有未指定这两项值的ajax
+	jQuery.ajaxSetup({
+		timeout:2000,//两秒后取消ajax请求
+		cache:false //通过给URL，添加时间戳来禁用浏览器缓存
+	})
+	
+	$('#loading_animation').bind({
+		ajaxStart:function{ $(this).show();},
+		ajaxStop:function{ $(this).hide();}
+	})
+</script>
+</html>
