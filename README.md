@@ -177,6 +177,10 @@
 · add()
 · 将选中的元素集，用做上下文
 · end/andself
+<<<<<<< HEAD
 · jquery的插件拓展。
 · jQuery UI类库：http://jqueryui.com
 ```
+=======
+```
+>>>>>>> 2dac4976130f9856a6461bb4c2c1cca51b9a5401
