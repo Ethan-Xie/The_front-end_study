@@ -41,5 +41,21 @@
 		ajaxStart:function{ $(this).show();},
 		ajaxStop:function{ $(this).hide();}
 	})
+	
+	
+	//给函数添加一个函数，该函数成为一个jquery方法
+	jQuery.fn.println=function(){
+		//将所有参数合并成空格分隔的字符串
+		var msg=Array.prototype.join.call(arguments," ");
+		//遍历jquery对象中的每一个元素
+		this.each(function(){
+			//将参数字符串作为纯文本添加到每一个元素后面，并添加br/
+			jQuery(this).append(document.createTextNode(msg).append("<br/>"));
+		});
+		//返回这个未加修改的jquery对象，以便链式调用
+		return this;
+	}
+	//直接调用即可
+	$("#debug").println("x=",x,";y= ",y);
 </script>
 </html>

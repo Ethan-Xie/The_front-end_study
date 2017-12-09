@@ -1,6 +1,14 @@
 # javascript的学习笔记
 
-### 从今天开始，我就把我的个人学习笔记，以后我与大家也可以看看，前端时间的笔记全写在印象笔记了，没有分天整理。暂时是缺失的。
+### 从今天开始，我就把我的个人学习笔记，以后我与大家也可以看看
+
+## javascript学习--2017-11-18：继承
+## javascript学习--2017-11-15：date & 对象
+## JS数据类型详解 11-14，至数组，&globe  &Math
+## javascript学习--2017-11-12：第11章：javascript的子集与拓展
+## javascript学习--2017-11-9：第九章：类与模块
+## javascript学习--2017-11-8：闭包
+## javascript学习--2017-11-7：第八章：函数
 
 ## 十三章：web浏览器中的javascript（对应2017-11-21）
 参考书：[JavaScript权威指南(第6版)] P309-336
@@ -132,6 +140,7 @@
 
 ```
 ##  1 · jQuery3（对应2017-12-05）
+```
 1 · jQuery3
 1.1 · 事件处理 bind
 1.2 · 注销事件处理程序
@@ -149,6 +158,7 @@
 4.2 · jQuery.getJSON()
 ```
 ##   jQuery5（对应2017-12-08）
+
 ```
 1 · jQuery5
 · jQuery.get() & jQuery.post()
@@ -167,4 +177,6 @@
 · add()
 · 将选中的元素集，用做上下文
 · end/andself
+· jquery的插件拓展。
+· jQuery UI类库：http://jqueryui.com
 ```

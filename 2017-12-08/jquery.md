@@ -140,7 +140,52 @@ $("a[href]").parents("p");//含有链接p结点
 
 $("a[href]").closest("div");//包含所有链接的最里层div
 $("a[href]").parentsUntil(":not(div)");//所有包裹a的div元素
-
+```
 ## end/andself
+
+## jquery的插件拓展。
+
+- jquery.fn是所有jQuery对象的原型对象
+
+```
+	//给函数添加一个函数，该函数成为一个jquery方法
+	jQuery.fn.println=function(){
+		//将所有参数合并成空格分隔的字符串
+		var msg=Array.prototype.join.call(arguments," ");
+		//遍历jquery对象中的每一个元素
+		this.each(function(){
+			//将参数字符串作为纯文本添加到每一个元素后面，并添加br/
+			jQuery(this).append(document.createTextNode(msg).append("<br/>"));
+		});
+		//返回这个未加修改的jquery对象，以便链式调用
+		return this;
+	}
+	//直接调用即可
+	$("#debug").println("x=",x,";y= ",y);
+	
+```
+- 不要依赖$标识符：
+
+```
+(function($){
+	//在此书写插件代码
+	
+}(jQuery);
+```
+
+- 可以通过给jQuery.expr[':']对象添加属性来添加新的伪类选择器。
+- 下面例子定义了一个新的draggable过滤器，可用来返回draggable=true属性的元素
+
+```
+jQuery.expr[':'].draggable=function(e){return e.draggable === true;};
+```
+- 那么可以通过$(img:draggable)来选取可以拖拽的图片，还可以通过$("img[draggable]")。
+
+## jQuery UI类库：http://jqueryui.com
+
+```
+//将类为date的input元素转化为日期选取组件
+$("input.date").datepicker();
+```
 
 
