@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <script  type="text/javascript" src="../../jquery.js"></script>
+      <link rel="stylesheet" type="text/css" href="theme.css" /> 
+    <title>无标题文档</title>
+    <style>
+    
+    </style>
+</head>
+<body>
+    用户名：<input type="text" name="username"  id="username">
+    <input type="text" id="myres" style="border-width:0;color:red;" /><br/>
+    <input type="button" value="检测" onclick="checkName ()" /><br/>
+    <input type="text" style="border:1px;" >
+    <input  type="button" value="登录" /><br />
+   
+   <img src="http://tvax1.sinaimg.cn/crop.0.0.996.996.180/0064W8SNly8fgem0vvtowj30ro0rotaj.jpg"  />
+</body>
+<script  type="text/javascript">
+	
+	//查询一个值
+	var name=localStorage.username;
+	name =localStorage['username'];//数组表示法
+	//undefined == true;
+	console.log(!name);;
+	//最好直接一点
+	if(name==undefined){
+		name=prompt("请输入你的名字");
+		localStorage.username=name;
+	}
+	//迭代：
+	for(var name in localStorage){
+		var value=localStorage[name];
+		console.log(value);
+	}
+	
+	
+	//如果是数字，需转义
+	localStorage.x=0;
+	var x=parseInt(localStorage.x);
+	//同样的日期
+	localStorage.lastRead=(new Date()).toUTCString();
+	 console.log(localStorage.lastRead);
+	 var lastRead=new Date(Date.parse(localStorage.lastRead));
+	 //json
+	// localStorage.data=JSON.stringify(data);
+	 //var data=JSON.parse(localStorage.data);
+	 
+	 //一些api的使用方法
+	 localStorage.setItem("x",1);
+	 localStorage.getItem("x");
+	 
+	 //枚举
+	 for(var i=0;i<localStorage.length;i++){
+	 	var name=localStorage.key(i);
+	 	var value=localStorage.getItem(name);
+	 }
+	 
+	 //删除x项
+	 localStorage.removeItem("x");
+	 //全部删除
+	 localStorage.clear();
+	 //
+	 
+	 
+	 localStorage.o={x:1};
+	 //localStorage.setItem("o").x=2;
+	 console.log(localStorage.getItem("o").x)//underfined
+	 console.log("value="+localStorage.getItem("o"));
+	 
+	 
+	 //兼容
+	 var memory=window.localStorage || (window.UserDataStorage && new UserDataStorage) || new cookieStorage();
+	 //然后在对应机制中查询数据
+	 var username=memory.getItem("username");
+</script>
+</html>
