@@ -98,3 +98,180 @@ localStorage.getItem("0").x=2;//并不希望存储2
 - session 的作用与限制在钉刺窗口
 - 注册程序使用addEventLister
 - localStorage使用的是广播机制。
+
+
+
+## cookie
+- 是指web浏览器存储的少量的数据
+- 最早为服务端所使用，服务器端脚本可以读、写存储在客户端的cookie值。
+-   它的增删改查，都是通过特殊格式的字符串读写document的cookie属性来完成，每个cookie都是有它的有效期与作用域，
+- 浏览器可以通过nevigator.cookieEnable这个属性来实现，如果是true则是开启的。
+
+## cookie的属性：有效期+作用域
+- 除了name-value,cookie还有些属性来控制cookie有效期与作用域。
+- cookie默认的有效期与session，浏览器关闭的一样，关闭网页就丢失。与sessionStorage的有效期有区别，它不是局限于浏览器的单个窗口
+- max-age设置cookie有效期
+- 和localStorage与sessionStorage类似，作用域通过文档源与文档路径。。该作用域是通过cookie的path和domain属性也是可配置的。
+- 默认情况下，和创建它的web页面有关，并对web页面以及web页面同目录或者子目录的web页面相关。
+- 有时上一调不满足用户需求。那么可以设置指定的路径前缀开始。共享
+- 将cookie设置为“/”。那么cookie和localStorage拥有相同的作用域
+- 用iframe可以来实现跨站。但同源策略限制了垮站的cookie来窥探。
+- cookie共享：通过设置cookie的domain的属性来达到目的：如path设置为：“/”。其domain设置为“.example.com”。那么的它的所有子域名都成立。
+- 它还有一个属性：secure。布尔类型。来表明cookie值是通过何种形式通过网络传递。默认不安全，一旦指定安全的，那么它只能在https，或者其它安全协议传递。
+
+
+## 保存cookie
+- cookie的名/值，不允许分号，逗号，空白符。需要用encodeURICompontent()值对它转码
+```
+component 
+英 [kəm'pəʊnənt]  美 [kəm'ponənt]
+adj. 组成的，构成的
+n. 成分；组件；[电子] 元件
+
+document.cookie = "version= "+encodeURIComponent(document.lastModified);
+
+
+// 加设置有效期
+ //
+	 function setcookie(name,value,daysToLive){
+	 	var cookie=name+"="+encodeURIComponent();
+	 	if(typeof daysToLive === "number"){
+	 		cookie+="; max-age=" + (daysToLive*60*60*24);//这里的的/+空格！！！
+	 	}
+	 	document.cookie=cookie;
+	 }
+```
+- 通过以上的类别，cookie的其他的属性; path,; domain,; secure和; max-age一样的后面连接字符串即可。
+
+
+## 读取cookie
+- 取出来是字符串。“; ”的spilt分割
+- 先采用decodeURIComponent()方法解析处理。
+```
+ //读取cookie
+	 function getCookie(){
+	 	var cookie={};
+	 	var all = document.cookie;
+	 	if(all === "")
+	 	{
+	 		return cookie;
+	 	}
+	 	var list=all.split("; ");
+	 	for(var i=0;i<list.length;i++){
+	 		var cookie=list[i];
+	 		var p=cookie.indexOf("=");
+	 		var name=cookie.substring(0,p);
+	 		var value=cookie.substring(p+1);
+	 		value=decodeURIComponent(value);
+	 		cookie[name]=value;
+	 	}
+	 }
+```
+## cookie的局限性
+- 设计初衷是给服务端脚本用来存储少量数据的。该数据会在每次请求一个相关的url是传到服务器，对cookie的数目与大小都做了限制。
+- 允许cookie总数超过300个，当部分浏览器对单个cookie大小限制在4kb
+
+
+## cookie实现类
+```
+/*
+ * CookieStorage.js
+ * This class implements the Storage API that localStorage and sessionStorage
+ * do, but implements it on top of HTTP Cookies.
+ */
+function CookieStorage(maxage, path) {  // Arguments specify lifetime and scope
+
+    // Get an object that holds all cookies
+    var cookies = (function() { // The getCookies() function shown earlier
+        var cookies = {};           // The object we will return
+        var all = document.cookie;  // Get all cookies in one big string
+        if (all === "")             // If the property is the empty string
+            return cookies;         // return an empty object
+        var list = all.split("; "); // Split into individual name=value pairs
+        for(var i = 0; i < list.length; i++) {  // For each cookie
+            var cookie = list[i];
+            var p = cookie.indexOf("=");        // Find the first = sign
+            var name = cookie.substring(0,p);   // Get cookie name
+            var value = cookie.substring(p+1);  // Get cookie value
+            value = decodeURIComponent(value);  // Decode the value
+            cookies[name] = value;              // Store name and value
+        }
+        return cookies;
+    }());
+
+    // Collect the cookie names in an array
+    var keys = [];
+    for(var key in cookies) keys.push(key);
+
+    // Now define the public properties and methods of the Storage API
+
+    // The number of stored cookies
+    this.length = keys.length;
+
+    // Return the name of the nth cookie, or null if n is out of range
+    this.key = function(n) {
+        if (n < 0 || n >= keys.length) return null;
+        return keys[n];
+    };
+
+    // Return the value of the named cookie, or null.
+    this.getItem = function(name) { return cookies[name] || null; };
+
+    // Store a value
+    this.setItem = function(key, value) {
+        if (!(key in cookies)) { // If no existing cookie with this name
+            keys.push(key);      // Add key to the array of keys
+            this.length++;       // And increment the length
+        }
+
+        // Store this name/value pair in the set of cookies.
+        cookies[key] = value;
+
+        // Now actually set the cookie.
+        // First encode value and create a name=encoded-value string
+        var cookie = key + "=" + encodeURIComponent(value);
+
+        // Add cookie attributes to that string
+        if (maxage) cookie += "; max-age=" + maxage;
+        if (path) cookie += "; path=" + path;
+
+        // Set the cookie through the magic document.cookie property
+        document.cookie = cookie;
+    };
+
+    // Remove the specified cookie
+    this.removeItem = function(key) {
+        if (!(key in cookies)) return;  // If it doesn't exist, do nothing
+
+        // Delete the cookie from our internal set of cookies
+        delete cookies[key];
+
+        // And remove the key from the array of names, too.
+        // This would be easier with the ES5 array indexOf() method.
+        for(var i = 0; i < keys.length; i++) {  // Loop through all keys
+            if (keys[i] === key) {              // When we find the one we want
+                keys.splice(i,1);               // Remove it from the array.
+                break;
+            }
+        }
+        this.length--;                          // Decrement cookie length
+
+        // Finally actually delete the cookie by giving it an empty value
+        // and an immediate expiration date.
+        document.cookie = key + "=; max-age=0";
+    };
+
+    // Remove all cookies
+    this.clear = function() {
+        // Loop through the keys, removing the cookies
+        for(var i = 0; i < keys.length; i++)
+            document.cookie = keys[i] + "=; max-age=0";
+        // Reset our internal state
+        cookies = {};
+        keys = [];
+        this.length = 0;
+    };
+}
+```
+
+
