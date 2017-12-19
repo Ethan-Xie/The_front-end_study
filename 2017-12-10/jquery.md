@@ -274,4 +274,75 @@ function CookieStorage(maxage, path) {  // Arguments specify lifetime and scope
 }
 ```
 
+##   利用IEuserData
+- 微软在IE5之后的IE浏览器中实现它专属的的客户端存储机制。
+- IE是通过在document元素后面的附加的一个专属的“DHTML行为”来，实现存储。
+```
+//ie userData
+	 var memory=document.createElement("div");//创建一个元素
+	 memory.id="_memory";//设定一个id
+	 memory.style.display="none";//将其隐藏
+	 memory.style.behavior="url(#default#userData");//附加的userData
+	 document.body.appendChild(memory);//将其添加到document
+	 
+	 //操作数据，使用了上面的初始化的例子
+	 memory.load("myStoreData");//指定名，来载入响应的数据
+	 var name=memory.getAttribute("username");//获取其中的片段
+	 if(!name){
+	 	name=prompt("what you name?");//获取用户输入
+	 	memory.setAttribute("username",name);//将其设置为memory的一个属性
+	 	memory.save("myStoreData");//保存，好为下次使用  。删除使用removeAttribute
+	 }
+```
+- 默认情况下，通过userData存储的数据，除非手动去删除否则它将永不失效。但是，也可以通过expires属性来指定过期时间
+```
+//指定时间
+	 var name=(new Date()).getTime();//毫秒
+	 var expires=now +100*24*60*60*1000;//失效：100day
+	 expires=new Date(expires).toUTCString();
+	 memory.expires=expires;
+```
+- 作用域：限制在当前文档的同目录文档中。它的作用域没有cookie广泛。cookie是对所在目录的子目录也有效。userData的机制并没有像cookie那样。
+- 没有像cookie的path和domain来控制改变作用域的方式
+- 大小：比cookie大，但比localStorage以及sessionStorage小
+- api
+```
+function UserDataStorage(maxage)  {
+    // Create a document element and install the special userData 
+    // behavior on it so it gets save() and load() methods.
+    var memory = document.createElement("div");         // Create an element
+    memory.style.display = "none";                      // Never display it
+    memory.style.behavior = "url('#default#userData')"; // Attach magic behavior
+    document.body.appendChild(memory);                  // Add to the document
 
+    // If maxage is specified, expire the userData in maxage seconds
+    if (maxage) {
+        var now = new Date().getTime();     // The current time
+        var expires = now + maxage * 1000;  // maxage seconds from now
+        memory.expires = new Date(expires).toUTCString();
+    }
+
+    // Initialize memory by loading saved values.
+    // The argument is arbitrary, but must also be passed to save()
+    memory.load("UserDataStorage");                     // Load any stored data
+
+    this.getItem = function(key) {     // Retrieve saved values from attributes
+        return memory.getAttribute(key) || null;
+    };
+    this.setItem = function(key, value) {
+        memory.setAttribute(key,value); // Store values as attributes
+        memory.save("UserDataStorage"); // Save state after any change
+    };
+    this.removeItem = function(key) {
+        memory.removeAttribute(key);    // Remove stored value attribute
+        memory.save("UserDataStorage"); // Save new state
+    };
+}
+```
+- 上述代码只在IE浏览器下有效。最好使用IE条件注释来避免其他浏览器载入上述代码
+```
+<!--[if IE]>
+ <script src="userDataStorage.js"></script>
+<![endif]-->
+```
+## 应用程序存储和离线web应用

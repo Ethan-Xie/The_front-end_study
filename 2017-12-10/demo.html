@@ -103,5 +103,27 @@
 	 		cookie[name]=value;
 	 	}
 	 }
+	 
+	 //ie userData
+	 var memory=document.createElement("div");//创建一个元素
+	 memory.id="_memory";//设定一个id
+	 memory.style.display="none";//将其隐藏
+	 memory.style.behavior="url(#default#userData");//附加的userData
+	 document.body.appendChild(memory);//将其添加到document
+	 
+	 //操作数据，使用了上面的初始化的例子
+	 memory.load("myStoreData");//指定名，来载入响应的数据
+	 var name=memory.getAttribute("username");//获取其中的片段
+	 if(!name){
+	 	name=prompt("what you name?");//获取用户输入
+	 	memory.setAttribute("username",name);//将其设置为memory的一个属性
+	 	memory.save("myStoreData");//保存，好为下次使用
+	 }
+	 
+	 //指定时间
+	 var name=(new Date()).getTime();//毫秒
+	 var expires=now +100*24*60*60*1000;//失效：100day
+	 expires=new Date(expires).toUTCString();
+	 memory.expires=expires;
 </script>
 </html>
