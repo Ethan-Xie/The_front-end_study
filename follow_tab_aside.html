@@ -1,0 +1,136 @@
+<!DOCTYPE html>  
+<html lang="zh-CN">  
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<link rel="stylesheet" href="//www.axie.cc/lib/reset.css" />
+	<script type="text/javascript">
+	
+	</script>
+	<style type="text/css">
+	</style>
+
+</head>
+<body style="background: lightgreen;width: auto;display: block;">
+
+      
+<script type="text/javascript" language="javascript">
+//速率
+var delta=0.1;
+//添加的items
+var collection;
+//是否关闭
+var closeB=false;
+
+//添加类
+function floaters() {
+	//数组
+  this.items = [];
+  //添加函数  它的id 左  上   里面所含的内容
+  this.addItem = function(id,x,y,content)
+      {
+     document.write('<DIV id='+id+' style="Z-INDEX: 10; POSITION: absolute;  width:80px; height:60px;left:'+(typeof(x)=='string'?eval(x):x)+';top:'+(typeof(y)=='string'?eval(y):y)+'">'+content+'</DIV>');
+    //对象
+     var newItem = {};
+     newItem.object   = document.getElementById(id);
+     newItem.x = x;
+     newItem.y = y;
+     this.items[this.items.length]  = newItem;
+      }
+      //滚动
+  this.play = function()
+      {
+     collection = this.items
+     window.setInterval('Floatplay()',30);
+      }
+  }
+  function Floatplay()
+  {
+  	//如果小于800 就关闭
+   if(screen.width<=800 || closeB)
+   {
+    for(var i=0;i<collection.length;i++)
+    {
+     collection[i].object.style.display = 'none';
+    }
+    return;
+   }
+   //items
+   for(var i=0;i<collection.length;i++)
+   {
+    var followObj = collection[i].object;
+    var followObj_x = (typeof(collection[i].x)=='string'?eval(collection[i].x):collection[i].x);
+    var followObj_y = (typeof(collection[i].y)=='string'?eval(collection[i].y):collection[i].y);
+    if(followObj.offsetLeft!=(document.body.scrollLeft+followObj_x)) {
+     var dx=(document.body.scrollLeft+followObj_x-followObj.offsetLeft)*delta;
+     dx=(dx>0?1:-1)*Math.ceil(Math.abs(dx));
+     followObj.style.left=followObj.offsetLeft+dx;
+     }
+    if(followObj.offsetTop!=(document.body.scrollTop+followObj_y)) {
+     var dy=(document.body.scrollTop+followObj_y-followObj.offsetTop)*delta;
+     dy=(dy>0?1:-1)*Math.ceil(Math.abs(dy));
+     followObj.style.top=followObj.offsetTop+dy;
+     }
+    followObj.style.display = '';
+   }
+  }
+  function closeBanner()
+  {
+   //alert(200);
+   closeB=true;
+   return;
+  }
+var theFloaters  = new floaters();
+//广告图片地址和连接地址
+  theFloaters.addItem('followDiv1','document.body.clientWidth-226',100,'<table border="0" cellpadding="0" cellspacing="1" bgcolor="#000000"><tr><td><a href="//www.axie.cc/lib/2.jpg" target="_blank"><img src="//www.axie.cc/lib/2.jpg" width="200" height="208" /></a></td></tr><tr><td style="width:200px; left:20px; cursor:pointer; text-align:center;line-height:200%; font-size:12px;background:#CCCCCC" onClick="closeBanner();">关闭</td></tr></table>');
+theFloaters.addItem('followDiv2',16,100,'<table border="0" cellpadding="0" cellspacing="1" bgcolor="#000000"><tr><td><a href="//www.axie.cc/lib/2.jpg" target="_blank"><img src="//www.axie.cc/lib/2.jpg" width="200" height="210" /></a></td></tr><tr><td style="width:200px; left:20px; cursor:pointer; text-align:center;line-height:200%; font-size:12px;background:#CCCCCC" onClick="closeBanner();">关闭</td></tr></table>');
+//alert(300);
+theFloaters.play();
+</script>
+
+
+<div style="height:200px;text-align:center;width: 150px;top:200px;display: block;background: blue;position: absolute; right: 10px;"></div>
+<div style="height:200px;text-align:center;width: 150px;top:200px;display: block;background: blue;position: absolute;left:10px;"></div>
+<div style="height:5000px;margin: 0 auto;width: 1000px;display: block;background: red;"></div>
+
+
+<script  type="text/javascript">
+//********************如果scroll 滚动，跟随滚动************
+
+
+/*注册事件*/
+function nscroll(fn) {
+	//这时的scroll
+	/*
+IE6/7/8： 
+对于没有doctype声明的页面里可以使用  document.body.scrollTop 来获取 scrollTop高度 ； 
+对于有doctype声明的页面则可以使用 document.documentElement.scrollTop； 
+Safari: 
+safari 比较特别，有自己获取scrollTop的函数 ： window.pageYOffset ； 
+Firefox: 
+火狐等等相对标准些的浏览器就省心多了，直接用 document.documentElement.scrollTop ； 
+
+	 */
+	var beforeScrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset;
+	//如果未设置，则初始化一个函数
+	//window.addEventListener("scroll", function() {console.log("test");}, false);
+    fn = fn || function() {};
+    if(window.addEventListener){
+		   window.addEventListener("scroll", function() {
+		        var afterScrollTop = document.documentElement.scrollTop || document.body.scrollTop || window.pageYOffset,
+		            delta = afterScrollTop - beforeScrollTop;
+		        console.log(afterScrollTop);
+		        if( delta === 0 ) return false;
+		        fn( delta > 0 ? "down" : "up" );
+		        beforeScrollTop = afterScrollTop;
+		    }, false);
+		}
+    }
+//判断scroll 是在上还是在下
+//nscroll(function(direction) { console.log(direction)});   
+
+
+</script>
+
+</body>
+</html> 
+
