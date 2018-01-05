@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- <link href="http://host.axie.cc/lib/reset.css" rel="stylesheet" > -->
+    <title>js转盘</title>
+    <script>
+        window.onload=function(){
+            var data=[0,45,90,135,180,225,270,315];
+            var context=["0deg", "45deg","90deg",  "135deg", "180deg", "225deg", "270deg", "315deg"];
+            var deg=45,//默认角度360/8
+                numdeg=0,//记入旋转后的角度
+                num=0,//记入旋转后的数组的位置
+                isRotated=false;//判断是否在进行中
+
+            //转的区域
+            var content=document.getElementById("content");
+            //监听的区域
+            var center=document.getElementById("center");
+            center.addEventListener('click',function(){
+                if(isRotated) return;//如果已经在进行，则停止
+                isRotated=true;
+                var index=Math.floor(Math.random()*8);//0-8的随机数
+                num=index+num;//记入数组的位置
+                numdeg+=index*deg+Math.floor(Math.random()*3+1)*360;//计算选择的度数，和随机转几圈
+                content.style.webkitTransform=content.style.transform="rotateZ(" + numdeg + "deg)";;//添加状态
+                setTimeout(() => {
+                    if(num >=8){
+                        num=num%8;//回归原始
+                    }
+                    alert(context[num]);//提示
+                    isRotated=false;//本次旋转接收
+                }, 1700);
+
+            })
+        }
+
+        /*另外一种写法
+        window.onload=function(){
+            var data=[320,260,180,620,760,380];
+            var content=document.getElementById("content");
+            var center=document.getElementById("center");
+            center.onclick=play;
+            var timer=null;
+            var count=0;
+            var degv=0;
+            var random=0;
+            function play(){
+            count=0;
+            random=Math.floor(Math.random()*6);
+            clearInterval(timer);
+            timer=setInterval(function(){
+            roll();
+            },30);
+            }
+            function roll(){    
+            degv=count++;
+            degv=degv*20;
+            if(degv==data[random])
+            {
+                clearInterval(timer);}
+            content.style.webkitTransform="rotate("+degv+"deg)";
+            content.style.msTransform="rotate("+degv+"deg)";
+            content.style.MozTransform="rotate("+degv+"deg)";
+            content.style.OTransform="rotate("+degv+"deg)";
+            content.style.transform="rotate("+degv+"deg)";
+            }
+        
+                
+        }
+*/
+    </script>
+    <style>
+        *{
+            margin: 0px;
+            padding: 0px;
+        }
+        body{
+            background-color: #f03200;
+        }
+        .con{
+            width: 661px;
+            height: 661px;
+            background-image: url("../lib/img_01.png");
+            margin: 0 auto;
+            min-width: 661px;
+            position: relative;
+        }
+        #content{
+            height: 120px;
+            width: 120px;
+            left:270px ;
+            top:270px;
+           /* margin: 120px auto 0px;*/
+            position: relative;
+            transform: rotateZ(0deg);
+            transform-origin: center center;
+            -webkit-transform-origin: center center;
+            transition: all 1.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+        #center{
+            height: 120px;
+            width: 120px;
+            border-radius: 120px;
+            background-color: #EE4F10;
+            color: white;
+            line-height: 110px;
+            font-weight: bold;
+            font-size: 30px;
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+        .trig{
+            height: 0px;
+            width:0px;
+            top:-25px;
+            left:15px;
+            border-left: 45px solid transparent;
+            border-right: 45px solid transparent;
+            border-bottom: 45px solid #1E4F10;
+            z-index: -1;
+            position: absolute;
+        }
+
+        .tag{
+            height: 120px;
+            width: 120px;
+            left:20px ;
+            top:270px;
+            position: relative; 
+            border:5px solid #09F;
+           
+        }
+
+        .tag:before,.tag:after{
+            content:"";
+            display: block;
+            border-width: 20px;
+            position: absolute;
+            bottom: -40px;
+            left: 50px;
+            border-style:solid dashed dashed;
+             border-color:#09F transparent transparent;
+           
+            font-size: 0px;
+            line-height: 0px;
+            /*
+            border-style:dotted solid double dashed; 
+            上边框是点状
+            右边框是实线
+            下边框是双线
+            左边框是虚线
+             border-style: solid solid solid solid;
+            border-color:green red #09f palevioletred ;
+            */
+        }
+
+        .tag:after{
+            bottom:-33px;
+            border-color:rgb(228, 18, 18) transparent transparent;
+            z-index: 100;
+        } 
+
+    </style>
+</head>
+<body>
+    <div class="con">
+        <div id="content">
+            <div class="trig"></div>
+            <div id="center"><h2>抽奖</h2></div>
+        </div>
+
+        <div class="tag">
+                抽奖
+            </div>
+    </div>
+</body>
+<script src="http://code.jquery.com/jquery.js"></script>
+</html>
+

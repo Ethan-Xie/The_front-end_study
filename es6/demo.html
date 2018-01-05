@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ethan-es6</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://host.axie.cc/lib/reset.css" rel="stylesheet" media="screen">
+    <script>
+      'use strict';
+      //******1.块级作用域
+      if(true){
+        var fruit="apple";
+        let fruit2="apple2";
+      }
+      {
+        let fruit2="apple2";
+      }
+      console.log(fruit);
+      //console.log(fruit2);//not defined
+
+      //*******2.const
+      const age=[];
+      //const age=2;  //identifier 'age'has already been declared
+      //age=3;//assignment to constant variable分配常数变量
+      age.push("1");//ok
+
+      //*******3.解构数组
+      function Breakfast(){
+        return ['cake','apple','tea'];
+      }
+      var tmp=Breakfast(),drink=tmp[1];
+      let[dessert,drink2,fruit3]=Breakfast();
+      console.log(dessert,drink2,fruit3);//cake apple tea
+      function Breakfast2(){
+        return {drink:"tea",fruit:"apple"};
+      }
+      let{drink:my_drink,fruit:my_fruit}=Breakfast2();
+      console.log(my_drink,my_fruit);//tea apple
+
+      //*******4.字符模版
+      let name="ethan",first_name="xie";
+      let my_name=`我叫${name},姓${first_name}`;
+      console.log(my_name);
+      //***4.1带标签模版
+      let my_new_name=kitchen`我叫${name},\n
+      姓${first_name}`;//前面tab也会带上~
+
+      function kitchen(strings,...values){
+        console.log(strings);
+        console.log(values);
+        let result='';
+        for(var i=0;i<values.length;i++){
+          result+=strings[i];
+          result+=values[i];
+        }
+        result +=strings[strings.length-1];
+        return result;
+      }
+      console.log(my_new_name);
+
+      //*******5.判断字符串里是否包含某个字符串
+      console.log(my_new_name.includes('xie'));//true,是否包含；startsWith:开头
+
+      //*********6.默认参数
+      function Breakfast3(fruit='orange',drink='water'){
+        return `${fruit} ${drink}`;
+      }
+      console.log(Breakfast3());//orange water
+      console.log(Breakfast3('2','3'));//2 3
+
+      //********7.展开操作符,spread
+      let arr1 =['hello','world'],arr2=['js',...arr1];
+      console.log(arr1);
+      console.log(...arr1);
+      console.log(arr2);
+
+      
+    </script>
+    <style>
+    </style>
+  </head>
+  <body>
+    <h1>Hello, world!</h1>
+    <script src="http://code.jquery.com/jquery.js"></script>
+  </body>
+</html>
