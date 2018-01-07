@@ -69,11 +69,211 @@
 
       //********7.展开操作符,spread
       let arr1 =['hello','world'],arr2=['js',...arr1];
-      console.log(arr1);
-      console.log(...arr1);
-      console.log(arr2);
+      console.log(arr1);//array(2)
+      console.log(...arr1);//hello world
+      console.log(arr2);//array(3)
 
-      
+      //********8.剩余操作符rest
+      function Breakfast4(dessert3,drink3,...tea3){
+        console.log(dessert3,drink3,tea3);//1 2 array(3)
+      }
+      Breakfast4('1','2','3','4','5');
+
+      //********9.解构函数
+      function Breakfast5(dessert3,drink3,{location,restaurant}={}){
+        console.log(dessert3,drink3,location,restaurant);//1 2 array(3)
+      }
+      Breakfast5('cake','orange',{location:'赣州',restaurant:'黄焖鸡'});;//cake orange 赣州 黄焖鸡
+
+      //********10.函数的名字，name属性
+   let my_function=function superBreakfast(argument){
+        //body
+      }
+      console.log(my_function.name);//superBreakfast 它的优先级更高
+
+      //********11.箭头函数
+      let Breakfast6=(age,name)=> {
+        return age+name;
+      }
+      //相对于
+      var Breakfast_top=function Breakfast(age,name){
+        return age+name;
+      }
+
+      //********11.对象表达式
+      let age1="18",name1="ethan";
+      let food={
+        age1,//=age1
+        name1,//name1
+        //Breakfast:function(){}
+        Breakfast(){}
+      }
+      console.log(food);//返回一个对象
+
+      //********11.对象属性
+      {
+        let food ={};
+        let drink='hot drink';
+        food.dessert='cake';
+        food[drink]='tea';
+        console.log(food);//food['hot drink']可以正常显示
+      }
+
+      //********12.比较两个值是否相等
+      {
+        console.log(+0 == -0);//true
+        console.log(+0 === -0);//true
+        console.log(NaN == NaN);//false
+        console.log(Object.is(NaN,NaN));//true
+        console.log(Object.is(+0 , -0));//false
+      }
+
+      //********13.把一个的值复制到另一个值上面
+      {
+        let Breakfast={};
+        Object.assign(
+          Breakfast,
+          {age:'18'}//复制源
+        );
+        console.log(Breakfast);//duplicate success
+      }
+
+  //********14.改变原型，prototype.
+      {
+        let Breakfast={
+          getDrink(){
+            return 'tea';
+          }
+        };
+        let dinner={
+          getDrink(){
+            return 'milk';
+          }
+        };
+        let sunday=Object.create(Breakfast);
+        console.log(sunday.getDrink());
+        console.log(Object.getPrototypeOf(sunday)=== Breakfast);//判断原型
+
+        Object.setPrototypeOf(sunday,dinner);
+        console.log(sunday.getDrink());
+        console.log(Object.getPrototypeOf(sunday)=== dinner);//判断原型
+      }
+
+      //********15._proto_也可以改变原型
+      {
+        let Breakfast={
+          getDrink(){
+            return 'tea';
+          }
+        };
+        let dinner={
+          getDrink(){
+            return 'milk';
+          }
+        };
+        let sunday={
+          __proto__:Breakfast
+        }
+        console.log(sunday.getDrink());
+        console.log(Object.getPrototypeOf(sunday)===Breakfast);
+        sunday.__proto__=dinner;
+        console.log(sunday.getDrink());
+        console.log(Object.getPrototypeOf(sunday)=== dinner);//判断原型
+      }
+
+      //********16.super的用法
+      {
+        let Breakfast={
+          getDrink(){
+            return 'tea';
+          }
+        };
+        let sunday={
+          __proto__:Breakfast,
+          getDrink(){
+            return super.getDrink()+"hello_super";
+          }
+        };
+        console.log(sunday.getDrink());//teahello_super
+      }
+
+      //******17.迭代器：Iterators
+       {
+         function chef(foods){
+           let i=0;
+           return{
+             next(){
+               let done=(i>=foods.length);
+               let value=!done ? foods[i++]:undefined;
+               return{
+                 value:value,
+                 done:done
+               }
+             }
+           }
+         }
+         let wanghao =chef(['tea','milk']);
+         console.log(wanghao.next());//Object {value: "tea", done: false}  表示第一个值为tea,第二个值是否越界
+         console.log(wanghao.next());
+         console.log(wanghao.next());//{value: undefined, done: true}
+       }
+
+       //******18.生成器：Generators
+       {
+         /*
+         function* chef(){
+           yield 'tea';
+           yield 'milk';
+         }
+         let wanghao=chef();
+         console.log(wanghao.next());
+         console.log(wanghao.next());
+         console.log(wanghao.next());
+         */
+
+         //升级
+         //let chef=function* (foods){}
+         function* chef(foods){
+           for(var i=0;i<foods.length;i++){
+             yield foods[i];
+           }
+         }
+         let wanghao=chef(['tea','milk']);
+         console.log(wanghao.next());
+         console.log(wanghao.next());
+         console.log(wanghao.next());
+       }
+
+       //******19.class创建类
+       {
+         class Chef{
+           constructor(food){
+             this.food=food;
+             this.dish=[];
+           }
+           get menu(){
+             return this.dish;
+           }
+           set menu(dish){
+             this.dish.push(dish);
+           }
+           cook(){
+             console.log(this.food);
+           }
+          static eat(food){
+            console.log(food);
+          }
+         }
+         let wanghao=new Chef('apple');
+         wanghao.cook();//apple
+         wanghao.menu='cake';
+         wanghao.menu='soymilk';
+         console.log(wanghao.menu);//["cake", "soymilk"]
+         Chef.eat('chicken');//公用，有点像闭包
+        //eat('chicken');没有
+       }
+
+
     </script>
     <style>
     </style>
