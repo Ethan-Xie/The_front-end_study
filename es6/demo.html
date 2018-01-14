@@ -244,7 +244,7 @@
          console.log(wanghao.next());
        }
 
-       //******19.class创建类
+       //******19.class创建类，set和get
        {
          class Chef{
            constructor(food){
@@ -269,11 +269,88 @@
          wanghao.menu='cake';
          wanghao.menu='soymilk';
          console.log(wanghao.menu);//["cake", "soymilk"]
-         Chef.eat('chicken');//公用，有点像闭包
+         Chef.eat('chicken');//chicken 公用，有点像闭包
         //eat('chicken');没有
        }
 
+       //******19.继承extend
+       {
+         class Person{
+           constructor(name,birthday){
+             this.name=name;
+             this.birthday=birthday;
+           }
+           intro(){
+             return `${this.name},${this.birthday}`;
+           }
+         }
+         class Chef extends Person{
+           //不写这个构造函数也是对的，构造函数也会继承
+          constructor(name,birthday){
+             super(name,birthday);//执行一下父类的构造好函数
+           }
+         }
+         let wanghao=new Chef('ethan','07-25');
+         console.log(wanghao.intro());//ethan,07-25
+       }
 
+       //**********20.set  集合:有点像数组，不能包含重复的东西
+      {
+        let dessert= new Set('ethan','h');//会拆分，h消失
+        dessert.add('hello');//一个整体
+        dessert.add('js');//一个整体
+        console.log(dessert);
+        console.log(dessert.size);
+        console.log(dessert.has('e'));
+        console.log(dessert.delete('t'));
+        dessert.forEach(dessert=>{
+          console.log(dessert);
+        });
+        dessert.clear();
+        console.log(dessert);
+      }
+
+      //**********21.Map:项目
+      {
+        let food=new Map();
+        let fruit={},cook=function(){},dessert='tea';
+        food.set(fruit,'apple');
+        food.set(cook,'黄焖鸡');
+        food.set(dessert,'milk');
+
+        console.log(food);//Map {Object {} => "apple", function => "黄焖鸡", "tea" => "milk"}
+        console.log(food.size);
+        console.log(food.get(fruit));
+        console.log(food.get(cook));
+        food.delete(dessert);
+        console.log(food.has(dessert));
+        food.forEach((value,key)=>{
+          console.log(`${key}=${value}`);
+        });
+        food.clear();
+      }
+
+      //************22.Module,导入导出。 
+      {
+        /*
+          let fruit='apple';//export 导出单个，直接在前面
+          dessert='cake';
+          //默认导出的东西：在前面改为export default
+          //导出默认：import chef from './modules/chef';
+          //也可以：export{dinner as default};
+          // 上面不需要添加｛｝
+          //使用:chef(fruit,dessert);
+          function dinner(fruit,dessert){
+            console.log(`今天的晚餐是${fruit}+${dessert})
+          }
+          export {fruit,dessert,dinner as breakfast};
+        */
+        import{fruit,dessert,breakfast as supper} from './modules/chef';
+        //import * as chef from './modules/chef'; 
+        //console.log(chef.fruit,chef.dessert);
+        supper(fruit,dessert);
+        console.log(fruit,dessert);
+      }
     </script>
     <style>
     </style>
