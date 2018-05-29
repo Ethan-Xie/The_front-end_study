@@ -258,3 +258,133 @@ location .(hash,search,hostname,pathname,port):会产生历史记录
 replace() 历史记录中没有
 
 location.reload（true）;  //重新加载（从服务器，不从缓存）
+
+### navigator
+浏览器信息，不同浏览器的对象也都有自己一套属性
+
+### 检测插件
+检测是否安装特定的插件 如 flash  quicktime
+
+### screen ,history
+
+## DOM
+### 操作节点
+someNode.insertBefore(newNode,null)	//插入后成为最后一个子节点
+someNode.insertBefore(newNode,someNode.lastChild)	//插入后成为最后一个子节点前面
+someNode.insertBefore(newNode,someNode.firstChild)
+
+replaceChild(newNode,someNode.firstChild)  //替换第一个子节点
+
+removeChild(newNode,someNode.firstChild)  //移除第一个子节点
+
+cloneNode()  相同的副本，true深复制	false浅复制
+
+### document 类型
+document 对象是 window对象的一个属性
+nodeType 值为9
+nodeName 值为 #document
+nodeValue 值为 null
+parentNode  值为 null
+ownerDocument  值null
+
+var html = document. documentElement;
+alert (html == document.child[0]);   //true
+alert (html == document.firstChild);//  //true1
+
+document.body
+document.title  //URL  domain  referrer
+
+getElementById() 和 getElementsByTagName()  //严格大小写，兼容早期浏览器
+IE7 及较低版本 input->name  与 id  相匹配的bug
+
+getElementsByTagName() 返回包含零或多个元素的Nodelist
+var images = document.getElementByTagName("img")
+images.length
+images[0].src
+images.item(0).src
+
+var myImage=images.namedItem("myImage");  // 通过name 标签值搜索
+var myImage=images['myImage'];
+
+
+getElementsByName()
+
+
+### dom一致性检测
+
+document. implementation属性就是为此提供相应信息和功能的对象,与浏览器对DOM的实现,直接对应。
+DOM级只为document .implementation规定了一个方法,即hasFeature()。
+这个方法接受两个参数:要检测的DOM功能的名称及版本号。如果浏览器支持给定名称和版本的功能,则该,方法返回true,
+如下面的例子所示:
+var hasxmlDom = document. implementation.hasFeature ("XML", .1.0");
+
+
+### 文档写入
+write,writeln,open,close
+
+写在 onload里面 会重写总个页面
+
+### element 类型
+
+nodeType 值为9
+nodeName 值为 元素的标签名
+nodeValue 值为 null
+parentNode  值为 document element
+ownerDocument  值 element,text,comment……
+
+sdiy ida"mDiv"</div>
+可以像下面这样取得这个元素及其标签名: 
+var div = document.getElementById ("myDiv");
+alert (div. tagName); //"DIV 
+alert (div.tagName = div.nodeName); //true.
+
+大小写注意一下，全部大写
+
+### html 元素
+html元素包括以下标准特性：
+id:文档的唯一标识符
+title：一般通过工具提示条显示出来
+lang：语言代码，很少使用
+dir：
+classname:class 相对应class特性的对应
+
+- 取得属性
+
+getAttribute(),setAttribute(),removeAttribute()
+
+Element类型是使用attributes属性的唯一个DOM节点类型。
+attributes属性中包含一个 NamedNodeMap,与Nodetist类似,也是一个“动态”的集合。元素的每一个特性都由一个Attr节点表示,每个节点都保存在NamedNodeMap对象中。 
+NamedNodeMap对象拥有下列方法。
+getNamedItem (name):返回nodeName属性等于name的节点;
+O removeNamedItem (name):从列表中移除nodeName属性等于name的节点;
+setNamedItem (node):向列表中添加节点,以节点的nodeName属性为索引;
+item (pos):返回位于数字pos位置处的节点。
+
+attributes属性中包含一系列节点,每个节点的nodeName就是特性的名称,而节点的nodeValue ,就是特性的值。要取得元素的id特性,可以使用以下代码。
+var id = element.attributes.getNamedItem ("id") .nodeValue;
+以下是使用方括号语法通过特性名称访问节点的简写方式。
+var id = element.attributes ["id"].nodevalue;
+也可以使用这种语法来设置特性的值,即先取得特性节点,然后再将其nodevalue设置为新值,如下所示。
+
+### 创建元素
+var div=document.createElement("div");
+div.id="mynewdiv";
+div.className="box";
+    
+### Text
+文本节点由Text类型表示,包含的是可以照字面解释的纯文本内容,纯文本中可以包含转义后的, i HTML字符,但不能包含HTML代码。Text节点具有以下特征:
+nodeType的值为3:.OnodeNane的值为"#text";
+nodevalue的值为节点所包含的文本;
+parentNode是一个Element;口不支持(没有)子节点。
+可以通过nodevalue属性或data属性访问Text节点中包含的文本,这两个属性中包含的值相,同。对nodeValue的修改也会通过data反映出来,反之亦然。使用下列方法可以操作节点中的文本。
+appendData (text):将text添加到节点的末尾。
+deleteData (offset, count):从offset指定的位置开始删除count个字符。
+insertData(offset, text):在offset指定的位置插入text
+replaceData (offset, count, text):用text替换从offset指定的位置开始到offset+ count为止处的文本。
+splitText (offset):从offset指定的位置将当前文本节点分成两个文本节点。
+substringData (offset, count):提取从offset指定的位置开始到offset+count为止处的字符串。除了这些方法之外,文本节点还有一个1ength属性,保存着节点中字符的数目。而且, nodevalue. length和data. length中也保存着同样的值。.
+
+### 创建文本节点
+var textNode = document.createTextNode("<strong>hello</strong>");
+要添加到新节点，才能看到
+
