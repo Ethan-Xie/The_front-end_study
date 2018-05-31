@@ -388,3 +388,161 @@ substringData (offset, count):提取从offset指定的位置开始到offset+coun
 var textNode = document.createTextNode("<strong>hello</strong>");
 要添加到新节点，才能看到
 
+### normalize() 
+var element = document.createElement("div");
+element.className = "message";var textNode  
+
+document,createTextNode ( "Hello world!");
+element.appendChiid(textNode);
+
+var anotherTextNode = document.createTextNode ("Yippee!");
+element.appendChild (anotherTextNode);
+document. body.appendChild (element);
+alert (element.chi1dNodes.length); 
+element.normalize();
+alert (element.childNodes.length);
+alert (element firatChi1d nodeValue); Hello worldiyinneeln
+
+
+### 还有个与splitText()相反的方法
+
+### comment 类型
+注释在DOM中是通过comment类型来表示的。
+Comment节点具有下列特征:
+
+nodeType的值为8;. 
+nogeName的值为"#comment";
+nodevalue的值是注释的内容;
+parentNode可能是Document或Elenent;
+不支持(没有)子节点。
+
+
+注释节点可以通过其父节点来访问.以下面的代码为例。
+div id-"myDiv"><!-A comment --></div>,在此,注释节点是<div>元素的一个子节点,因此可以通过下面的代码来访问它。
+var div = document.getElementById("myDiv");
+var comment = div.firstChild;alert (comment.data); //A comment
+
+### 10.1.6 CDATASection类型
+CDATASection类型只针对基于XML的文档,表示的是CDATA区域。
+与Comment类似,CDATASection类型继承自Text类型,因此拥有除splitText ()之外的所有字符串操作方法。
+DATASection节点具有下列特征:
+nodeType的值为4;
+nodeName的值为"#cdata-section";
+nodevalue的值是CDATA区域中的内容;
+parentNode可能是Document或Element;
+不支持(没有)子节点。
+CDATA区域只会出现在XML文档中,因此多数浏览器都会把CDATA区域错误地解析为Comment或Element,以下面的代码为例:
+<div id-"myDiv"><! [CDATA[This is some content.]]></div>
+
+这个例子中的<div>元素应该包含一个CDATASection节点。可是,四大主流浏览器无一能够这样,解析它。即使对于有效的XHTML页面,浏览器也没有正确地支持嵌人的CDATA区域。在真正的XML文档中,可以使用document . createCDataSection ()来创建CDATA区域,只需为其传入节点的内容即可。
+
+### 10.1.7 DocumentType类型
+DocumentType类型在Wcb浏览器中并不常用,仅有Firefox, Safari和Opera支持它。
+
+### Document Fragment
+在所有节点类型中,只有Document Fragment在文档中没有对应的标记。
+DOM规定文档片段, (document fragment )是种“轻量级”的文档,可以包含和控制节点,但不会像完整的文档那样占用,额外的资源。
+DocumentFragment节点具有下列特征: 
+nodeType的值为11;
+nodeName的值为"#document-fragment";
+nodevalue的值为null;
+parentNode的值为nul1;
+子节点可以是Element, ProcessingInstruction, Comment, Text, CDATASection或EntityReference。
+
+### attr类型
+元素的特性在DOM中以Attr类型来表示。在所有浏览器中(包括1E8),都可以访问Attr类型的构造函数和原型。从技术角度讲,特性就是存在于元素的attributes属性中的节点。
+特性节点具有,下列特征: 
+nodeType的值为11;
+nodeName的值是特性的名称;
+nodeValue的值是特性的值;
+parentNode的值为null;
+在HTML中不支持(没有)子节点;
+
+在XML中子节点可以是Text或EntityReference.尽管它们也是节点,但特性却不被认为是DOM文档树的一部分。
+开发人员最常使用的是getAt tribute()、setAttribute ()和remveAttribute()方法,很少直接引用特性节点。
+
+### 动态脚本
+var script = document.createElement ("script");
+script.type = "text/javascript";
+script.appendChild (document .createTextNode ("function sayHi() (alert ('hi);}"));
+
+document .body .appendChild(script);
+在Firefox, Safari, Chrome和Opera中,这些DOM代码可以正常运行。但在IE中,则会导致错误。IE将<script>视为一个特殊的元素,不允许DOM访问其子节点。不过,可以使用<script>元素的, text属性来指定JavaScript代码,像下面的例子这样:
+var script = docunent.createElement ("script");
+script.type = "text/javascript";
+script.text =function sayHi() (alert ('hi'))"；
+ document. body. appendChild (script);
+
+
+### 动态样式
+能够把CSS样式包含到HTML页面中的元素有两个。其中, <link>元素用于包含来自外部的文件,而<style>元素用于指定嵌入的样式。与动态脚本类似,所谓动态样式是指在页面刚加载时不存在的样式;动态样式是在页面加载完成后动态添加到页面中的。我们以下面这个典型的<1ink>元素为例:
+<link rel-"stylesheet" type="text/css" href="styles.css">
+使用DOM代码可以很容易地动态创建出这个元素:
+var link = document.createElement (link");
+link.rel = "stylesheet";
+link. type = "text/css";
+link.href = "style.css";
+var head = document.getElementByTagName ("head") [0];
+head. appendChild (link);
+
+### 操作表格
+table 是HTML 最复杂的结构之一
+var table = document.createElement("table")
+table.border = 1;
+table.width = "100%";
+
+### DOM拓展
+querySelector()方法
+使用例子：body,#myDiv,.selected,img.button
+
+queryDelectAll()  所有匹配的元素二不仅仅是一个元素，nodeList 的实例
+
+### 元素遍历
+childElementCount:返回子元素
+firstElementChild
+lastElementChild
+previousElementSibling
+nextElementSibling
+
+var i,len child = element.firstChild; 
+while(child t= element. lastChild) 
+{ 
+	if (child.nodeType = 1)
+	{ //检查是不是元素
+	processChild(child);
+	}
+	child = child.nextSibling;
+}
+
+而使用Element Traversal新增的元素,代码会更简洁。
+var i,1en,child = element.firstElementChild;
+while(child !s element. lastElementChild) 
+{ 
+	processChild(child); 
+	//已知其是元素 
+	child = child.nextElementsibling;
+}
+
+### html 5
+getElementByClassName()
+
+### classList 属性    html5
+add,contains,remove,toggle
+
+### 焦点管理   html5
+button.focus();
+
+document.readystate == "complete"
+
+### 兼容模式，head属性   html5
+var head = document.head || document.getElementsByTagName("head")[0]
+
+### charset html5
+document.charset = "UTF-8";
+
+### 自定义数据属性 html5
+添加非标准属性，前缀data-，
+
+var div = document.getElementById("myDiv");
+
+var appId=div.data
