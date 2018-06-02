@@ -546,3 +546,105 @@ document.charset = "UTF-8";
 var div = document.getElementById("myDiv");
 
 var appId=div.data
+
+
+### 插入标记
+
+innerHTML
+outerHTML
+
+,使用outerHTML属性以下面这种方式设置值:
+div. outerHTML= "<p>This ig a paragraph.</p>";
+这行代码完成的操作与下面这些DOM脚本代码一样: 
+var p = document.createslement ("p");p.appendchild (document.createTextNode( "This is a paragraph."));
+div.parentNode.replaceChild(p, div);
+结果,就是新创建的<p>元素会取代DOM树中的<div>元素。
+
+
+### 文档模式
+http-equiv  文档类型声明
+
+### children 属性
+var childCount = element.child.length;
+var firstChild = element.children[0];
+
+节点是不是另一个节点的后代
+contains();
+
+outerText
+
+## json
+简单值：不支持javascript的undefined
+对象：复杂数据类型
+数组
+
+字符串：必须使用双引号；
+
+｛
+	"name":"nicholas",
+	"age":29,
+	"school":{
+		"name":"xiejisen",
+		"location":"north "
+	}
+｝
+
+数据类型是数组：
+var array= [25,"hello",true];
+var book=JSON.parse(jsontext);
+
+序列号选项：
+JSON.stringify(book,["title","edition"]);
+
+var book = {
+	"title". Professional JavaScript", 
+	authors": ["Nicholas c. Zakas• ],
+	edition: 3,
+	year: 2011,
+}
+	var jsonText = JSON. stringify (book, function(key, value) { 
+			switch(key){ 
+				case "authora":
+				return value.Join(",")
+			
+				case "year":
+				return 5000;
+				
+				case "editton":
+				return undefined;
+				default:
+					return value:
+}};
+
+
+open()方法：
+	var xhr=createXHR();
+xhr.onreadystatechange = function(){}
+
+xhr.open("get","example.txt",true);
+
+xhr.send(null);
+
+xhr.readystatechange:  0 未初始化，1 启动，2 发送，3 接收，4 完成
+
+### http 头部信息
+
+
+每个HTTP请求和响应都会带有相应的头部信息,其中有的对开发人员有用,有的也没有什么用。XHR对象也提供了操作这两种头部(即请求头部和响应头部)信息的方法。默认情况下,在发送XHR请求的同时,还会发送下列头部信息。
+Accept:浏览器能够处理的内容类型。
+Accept-Charset:浏览器能够显示的字符集。
+Accept-Encoding:浏览器能够处理的压缩编码。
+Accept-Language:浏览器当前设置的语言。
+connection:浏览器与服务器之间连接的类型。
+ Cookie:当前页面设置的任何Cookie,
+Host:发出请求的页面所在的域。
+Referer:发出请求的页面的URI,注意, HTTP规范将这个头部字段拼写错了,而为保证与规,范一致,也只能将错就错了。(这个英文单词的正确拼法应该是referrer.) 
+user-Agent:浏览器的用户代理字符串。虽然不同浏览器实际发送的头部信息会有所不同,但以上列出的基本上是所有浏览器都会发送的。
+使用setRequestHeader ()方法可以设置自定义的请求头部信息。这个方法接受两个参数:头部字段,的名称和头部字段的值。要成功发送请求头部信息,必须在调用open ()方法之后且调用send()方法,之前调用setRequestHeader(),如下面的例子所示。
+
+var myheader = xhr.getResponseheader("myheader");
+var allHeaders=xhrgetAllResponseHeaders();
+
+
+				
+
