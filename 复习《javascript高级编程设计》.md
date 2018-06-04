@@ -645,6 +645,77 @@ user-Agent:浏览器的用户代理字符串。虽然不同浏览器实际发送
 var myheader = xhr.getResponseheader("myheader");
 var allHeaders=xhrgetAllResponseHeaders();
 
+### 超时设定
+xhr.timeout = 1000;
+xhr.ontimeout = function(){};
+xhr.send(null);
 
-				
+那么那个==4 的语句要放在function 里面。
 
+### 重写MIME类型  
+xhr.overrideMimeType("text/xml")
+
+### 进度事件  ie不支持
+
+loadstrart  progress error  abort  load  loadend
+
+### load 事件 ie8
+readystatechange  readyState
+
+load 只要收到服务器响应，不管状态，会触发load事件，检查status属性
+
+### onprogress 事件
+间接性事件，
+
+html 元素 
+
+### 跨域技术
+
+- ping图像
+
+ var img = new Image ();
+img.onload img.onerror alert ("Done!");
+};
+
+img.src= "http://www.example.com/test?name=Nicholas";
+
+onload,onerror
+
+### jsonp
+jsonp 类型数据  callback
+
+### comet
+是一个：长轮询与流
+
+
+SSE ( Server-Sent Events,服务器发送事件)是围绕只读Comet交互推出的API或者模式。SSEAPI用于创建到服务器的单向连接,服务器通过这个连接可以发送任意数量的数据。服务器响应的MIME类型必须是text/event-stream,而且是浏览器中的JavaScript API能解析格式输出。SSE支持短轮,询、长轮询和HTTP流,而且能在断开连接时自动确定何时重新连接。有了这么简单实用的API,再实,现Comet就容易多了。
+
+支持SSE的浏览器有Firefox 6+, Safari 5+、Opera 11+, Chrome和iOS 4+版Safario.1
+SSE APISSE的JavaScript API与其他传递消息的JavaScript API很相似。要预订新的事件流,首先要创建一个新的EventSource对象,
+并传进一个人口点:
+var source  new EventSource ("myevents.php");
+
+注意,传入的URL必须与创建对象的页面同源(相同的URL模式、域及端口), EventSource的!实例有一个readyState属性,值为0表示正连接到服务器,值为1表示打开了连接,值为2表示关闭,了连接。
+
+另外,还有以下三个事件。
+open:在建立连接时触发。
+message:在从服务器接收到新事件时触发。
+error:在无法建立连接时触发。就一般的用法而言, onmessage事件处理程序也没有什么特别的。
+source. onmessage  function (event)
+{ 
+var data = event.data;
+//处理数据
+};
+
+服务器发回的数据以字符中形式保存在event .data中。
+
+### websocket
+实例化了WebSocket对象后,浏览器就会马上尝试创建连接。与XHR类似, WebSocket也有一个表示当前状态的readyState属性。不过,这个属性的值与XHR并不相同,而是如下所示。
+WebSocket. OPENING (0):正在建立连接。
+WebSocket.OPEN (1):已经建立连接。
+WebSocket.CLOSING (2):正在关闭连接。
+WebSocket.CLOSE (3):已经关闭连接。
+WebSocket没有readystatechange事件;
+
+不过,它有其他事件,对应着不同的状态。readystate的值永远从0开始。要关闭Web Socket连接,可以在任何时候调用close ()方法。
+socket.close();调用了close ()之后, readystate的值立即变为2(正在关闭),而在关闭连接后就会变成30
