@@ -719,3 +719,45 @@ WebSocket没有readystatechange事件;
 
 不过,它有其他事件,对应着不同的状态。readystate的值永远从0开始。要关闭Web Socket连接,可以在任何时候调用close ()方法。
 socket.close();调用了close ()之后, readystate的值立即变为2(正在关闭),而在关闭连接后就会变成30
+
+- 其它事件
+
+open:在成功建立连接时触发
+error:在发现错误时触发，连接不能持续
+close：在关闭时触发
+
+### SSE 和 web sockets
+单向通信：只需向现有服务器读取数据。
+双向通信：聊天室
+
+## 高级技巧
+
+var person={name:"Nicholas"};
+Object.preventExtensions(person);
+person.age=29;
+alert(person.age);//undefined
+
+alert(Object.isExtensible(person));
+
+
+### 密封的对象
+var person = {name:"xie"}
+Object.seal(person);
+
+person.age = 29;
+alter(person.age);  //undefined
+
+delete person.name;
+alter(person.name); // "xie"
+
+### 冻结的对象
+
+Object.freeze(person);
+alter(Object.isExtensible(person));	// 不可拓展  false
+alter(Object.isSealed(person));		//可密封		true
+alter(Object.isFrozen(person));		//冻结对象   true
+
+javascript 库最怕有人意外修改了库的核心对象。冻结主要库，防止问题的发生
+
+ 
+
