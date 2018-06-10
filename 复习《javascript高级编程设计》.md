@@ -760,4 +760,97 @@ alter(Object.isFrozen(person));		//冻结对象   true
 javascript 库最怕有人意外修改了库的核心对象。冻结主要库，防止问题的发生
 
  
+###  离线运用与离线存储
+
+检测属性状态：
+if (navigator.onLine){ 
+	//正常工作
+｝ else ｛
+	//执行离线状态时的任务
+｝ 
+
+
+EventUtil.addHandler (window,"online", function (){
+	alert ("Online");
+});
+
+EventUtil.addHandler (window, "offline", function (){
+	 alert ("offline");
+}）；
+
+
+### 应用缓存
+html5的应用缓存，为开发离线web应用而设计
+
+使用一个manifest file,列出要下载和缓存的资源。下面简单的示例
+
+CACHE MANIFEST
+#Comment
+
+file.js
+file.css
+
+要将描述文件与页面关联起来,可以在<html>中的manifest属性中指定这个文件的路径,例如:
+	<html manifest="/offline.manifest">
+以上代码告诉页面, /offline.manifest中包含着描述文件。这个文件的MIME类型必须是, text/cache-manifest
+
+### 数据存储
+cookie
+每个域的cookie总数有限的，每个浏览器各不相同，
+
+不区分大小写
+字符串必须被URL编码
+域：cookie 对于那个域是有效的
+路径：对于域，指定的那个路径
+失效时间：cookie表示何时被删除的时间戳
+安全标志：cookie只有在使用SSL连接的时候才发送到服务器
+
+domain=.axie.cc
+
+secure:只有ssl才能发送
+
+所以可以使用 docodeURLComponent() 解码
+
+js设计设置cookie ： document.cookie = "name=xie";
+更好的解法：可以编码
+
+
+### web 存储机制
+clear():删除所有值
+getItem(name):根据指定的名字name获取对应的值
+key(index):获取index位置处的值和名字
+removeItem(name,value):为指定name设置一个对应的值
+setItem(name,value):为name设置一个对应的值
+
+
+- sessionStorage 对象
+
+sessionStorage.setItem("name","Nicholas");
+session.book = "xie";
+
+- globalStorage 对象
+
+实现了globalStorage 对象（Firefox 2）
+
+使用globalStorage 指定一个域名
+
+- localStorage
+
+不能给localStorage指定任何规则 ，页面必须来自同一个域名，使用同一个协议，在同一个端口。
+
+### storage 事件
+
+domain,key,newValue,oldValue
+
+EventUtil.addHandler(document,"storage",function(event){
+	alter();
+})
+
+限制：2.5M
+
+### indexedDB
+与MySQL 或 web SQL database 数据库类似
+
+onerror  onsuccess
+event.target.result  event.target.errorCode
 
