@@ -37,7 +37,7 @@
             image : image,
             x : 100,
             y : 200,
-            speed : 5,
+            speed : 6,
             leftDown : false,
             rightDown : false,
         }
@@ -67,7 +67,7 @@
             context.clearRect(0,0,canvas.width,canvas.height);
             //draw
             g.draw();
-        },1000/30);
+        },1000/50);
         log(g.update);
         return g;
     }
