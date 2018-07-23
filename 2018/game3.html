@@ -51,21 +51,38 @@
     }
 
     var GuaGame = function() {
+        var g = {
+            actions: {},
+        };
         var canvas = document.querySelector("#id-canvas");
         var context = canvas.getContext('2d');
+        g.canvas =canvas;
+        g.context = context;
+        log("Guamame");
+       
+        setInterval(function(){
+            log(g.update);
+            //update
+            g.update();
+            context.clearRect(0,0,canvas.width,canvas.height);
+            //draw
+            g.draw();
+        },1000/30);
+        log(g.update);
+        return g;
     }
     
     var __main =function() {
+        var game=GuaGame();
         var paddle=Paddle();
         var img = paddle.image;
-        var canvas = document.querySelector("#id-canvas");
-        var context = canvas.getContext('2d');
+
         var leftDown = false;
         var rightDown = false;
 
 
         img.onload = function(){
-            context.drawImage(img,paddle.x,paddle.y);
+            game.context.drawImage(img,paddle.x,paddle.y);
         }
         //events
         window.addEventListener('keydown',function(event){
@@ -87,9 +104,9 @@
             }
             log(event.type)
         })
-    // console.log("img");
-        
-        var roll = setInterval(function(){
+        game.update = function(){
+            log("game.update")
+                 // update x
             if(leftDown){
                 //向左移动
                 paddle.moveLeft()
@@ -97,11 +114,37 @@
                 //向右移动
                 paddle.moveRight()
             }
-            context.clearRect(0,0,canvas.width,canvas.height);
-            context.drawImage(img,paddle.x,paddle.y);
-        },1000/60)
+        }
+        game.draw = function(){
+            log("game.draw")
+            //draw 
+            game.context.drawImage(img,paddle.x,paddle.y);
+        }
+        log("main")
     }
     
     __main();
+    /*
+        / shim layer with setTimeout fallback
+        window.requestAnimFrame = (function(){
+        return  window.requestAnimationFrame       ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame    ||
+                function( callback ){
+                    window.setTimeout(callback, 1000 / 60);
+                };
+        })();
+
+
+        // usage:
+        // instead of setInterval(render, 16) ....
+
+        (function animloop(){
+        requestAnimFrame(animloop);
+        render();
+        })();
+        // place the rAF *before* the render() to assure as close to
+        // 60fps with the setTimeout fallback.
+    */
 </script>
 </html>
