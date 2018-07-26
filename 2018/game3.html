@@ -50,20 +50,68 @@
         return o;
     }
 
+    var Ball = function (){
+        var image = imageFromPath("../lib/ball.png");
+        var o = {
+            image : image,
+            x : 100,
+            y : 300,
+            speedX : 6,
+            speedY : 6,
+            fired:false,
+        }
+        o.fire = function(){
+            o.fired = true
+        }
+        o.move = function() {
+            if(o.fired){
+               // log("move");
+               if(o.x < 0 || o.x >400){
+                   
+               }
+            }
+        }
+        return o;
+    }
+
     var GuaGame = function() {
         var g = {
             actions: {},
+            keydowns:{},
         };
         var canvas = document.querySelector("#id-canvas");
         var context = canvas.getContext('2d');
         g.canvas =canvas;
         g.context = context;
         log("Guamame");
-       
+        g.drawImage = function(paddle){
+            g.context.drawImage(paddle.image,paddle.x,paddle.y);
+        }
+        //events
+        window.addEventListener('keydown',function(event){
+            g.keydowns[event.key] = true;
+        });
+        window.addEventListener('keyup',function(event){
+            g.keydowns[event.key] = false;
+        });
+
+        //注册事件函数
+        g.addAction = function(key,callback){
+            g.actions[key] = callback;
+        }
         setInterval(function(){
-            log(g.update);
+            //events
+            var actions = Object.keys(g.actions);
+            for(var i = 0; i<actions.length;i++){
+                var key = actions[i];
+                if(g.keydowns[key]){
+                    //如果按键被按下，调用注册的action
+                    g.actions[key]();
+                }
+            }
+            //log(g.update);
             //update
-            g.update();
+            //g.update();
             context.clearRect(0,0,canvas.width,canvas.height);
             //draw
             g.draw();
@@ -75,15 +123,47 @@
     var __main =function() {
         var game=GuaGame();
         var paddle=Paddle();
+        var ball=Ball();
         var img = paddle.image;
 
         var leftDown = false;
         var rightDown = false;
 
 
+        //注册事件
+        game.addAction('a',function(){
+            paddle.moveLeft()
+        })
+        game.addAction('d',function(){
+            paddle.moveRight()
+        })
+        game.addAction('f',function(){
+            ball.fire();
+            ball.move();
+        })
+/*
         img.onload = function(){
             game.context.drawImage(img,paddle.x,paddle.y);
         }
+        game.update = function(){
+            log("game.update")
+                 // update x
+            if(leftDown){
+                //向左移动
+                paddle.moveLeft()
+            }else if(rightDown){ 
+                //向右移动
+                paddle.moveRight()
+            }
+        }
+*/
+        game.draw = function(){
+            //log("game.draw");
+            //draw 
+            game.drawImage(paddle);
+            // game.context.drawImage(img,paddle.x,paddle.y);
+        }
+        /*
         //events
         window.addEventListener('keydown',function(event){
             var k = event.key;
@@ -104,47 +184,10 @@
             }
             log(event.type)
         })
-        game.update = function(){
-            log("game.update")
-                 // update x
-            if(leftDown){
-                //向左移动
-                paddle.moveLeft()
-            }else if(rightDown){ 
-                //向右移动
-                paddle.moveRight()
-            }
-        }
-        game.draw = function(){
-            log("game.draw")
-            //draw 
-            game.context.drawImage(img,paddle.x,paddle.y);
-        }
-        log("main")
+        */
+        
     }
     
     __main();
-    /*
-        / shim layer with setTimeout fallback
-        window.requestAnimFrame = (function(){
-        return  window.requestAnimationFrame       ||
-                window.webkitRequestAnimationFrame ||
-                window.mozRequestAnimationFrame    ||
-                function( callback ){
-                    window.setTimeout(callback, 1000 / 60);
-                };
-        })();
-
-
-        // usage:
-        // instead of setInterval(render, 16) ....
-
-        (function animloop(){
-        requestAnimFrame(animloop);
-        render();
-        })();
-        // place the rAF *before* the render() to assure as close to
-        // 60fps with the setTimeout fallback.
-    */
 </script>
 </html>
