@@ -11,16 +11,20 @@
             padding: 0;
         }
         body{
-            border:1px red solid;
+            /*border:1px red solid;*/
         }
         #id-canvas{
-            border:1px black solid;
+            border:4px red solid;
         }
     </style>
 </head>
 <body>
+    <center>
+            <canvas id="id-canvas" width="400" height="600"></canvas>
+            <br><br>
+            <button id="begin">按F开始</button>
+    </center>
     
-    <canvas id="id-canvas" width="400" height="600"></canvas>
 </body>
 <script>
     var log = console.log.bind(console);
@@ -32,22 +36,44 @@
         return img;
     }
     var Paddle = function (){
-        var image = imageFromPath("../lib/1.jpg");
+        var image = imageFromPath("../lib/grass.png");
         var o = {
             image : image,
             x : 100,
-            y : 200,
-            speed : 6,
+            y : 400,
+            speed : 10,
             leftDown : false,
             rightDown : false,
         }
         o.moveLeft = function(){
             this.x -= this.speed;
+            if(this.x<0){
+                this.x += this.speed;
+            }
         }
         o.moveRight = function(){
             this.x += this.speed;
+            if(this.x+ o.image.width> 400){
+                this.x -= this.speed;
+            }
+        }
+        o.collide = function(ball){
+            if(ball.y+ball.image.height >o.y){
+                if(ball.x > o.x && ball.x <o.x+o.image.width){
+                    return true;
+                }
+            }
+            return false;
         }
         return o;
+        /*
+        o.collide = function(x1,y1,x2,y2) {
+            if( x2<x1 && x1<x2+20 && y2<y1 && y1<y2+120){
+                return true;
+            }
+            return false
+        }
+        */
     }
 
     var Ball = function (){
@@ -66,9 +92,15 @@
         o.move = function() {
             if(o.fired){
                // log("move");
-               if(o.x < 0 || o.x >400){
-                   
+               if(o.x < 0 || o.x >400-15){
+                   o.speedX = -o.speedX;
                }
+               if(o.y < 0 || o.y >600-10){
+                   o.speedY = -o.speedY;
+               }
+               log("move")
+               o.x += o.speedX;
+               o.y += o.speedY;
             }
         }
         return o;
@@ -115,6 +147,7 @@
             context.clearRect(0,0,canvas.width,canvas.height);
             //draw
             g.draw();
+            g.update();
         },1000/50);
         log(g.update);
         return g;
@@ -124,10 +157,11 @@
         var game=GuaGame();
         var paddle=Paddle();
         var ball=Ball();
-        var img = paddle.image;
-
-        var leftDown = false;
-        var rightDown = false;
+        var mark=0;
+        // var img = paddle.image;
+        // var img2 = ball.image;
+        // var leftDown = false;
+        // var rightDown = false;
 
 
         //注册事件
@@ -139,7 +173,7 @@
         })
         game.addAction('f',function(){
             ball.fire();
-            ball.move();
+            document.getElementById("begin").innerText = "按F结束"
         })
 /*
         img.onload = function(){
@@ -161,7 +195,18 @@
             //log("game.draw");
             //draw 
             game.drawImage(paddle);
+            game.drawImage(ball);
             // game.context.drawImage(img,paddle.x,paddle.y);
+        }
+        game.update = function(){
+            ball.move()
+            //判断相撞 paddle.collide
+            if(paddle.collide(ball)){
+                //log(ball);
+                ball.speedY *=-1
+                mark += 1;
+                log("mark:"+mark)
+            }
         }
         /*
         //events
