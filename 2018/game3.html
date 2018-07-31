@@ -76,6 +76,16 @@
         */
     }
 
+    //交集函数
+    var rectIntersects = function(o,ball) {
+            if(ball.y > o.y && ball.y <o.y+o.image.width){
+                if(ball.x > o.x && ball.x <o.x+o.image.width){
+                    return true;
+                }
+            }
+            return false;
+        }
+
     var Ball = function (){
         var image = imageFromPath("../lib/ball.png");
         var o = {
@@ -108,15 +118,25 @@
 
     //砖块
     var Block = function() {
-        var image = imageFromPath("../lib/ball.png");
+        var image = imageFromPath("../lib/block.png");
         var o = {
             image : image,
             x : 100,
-            y : 300,
+            y : 100,
             w : 100,
             h : 300,
-            
+            alive : true,
         }
+        o.kill = function (){
+            o.alive = false
+        }
+        o.collide = function(ball){
+            if(rectIntersects(o,ball) || rectIntersects(ball,o)){
+                return true;
+            }
+            return false;
+        }
+        return o;
     }
 
     var GuaGame = function() {
@@ -167,8 +187,11 @@
     }
     
     var __main =function() {
-        var game=GuaGame();
-        var paddle=Paddle();
+
+        var game = GuaGame();
+        var paddle = Paddle();
+        var block = Block();
+
         var ball=Ball();
         var mark=0;
         // var img = paddle.image;
@@ -209,6 +232,10 @@
             //draw 
             game.drawImage(paddle);
             game.drawImage(ball);
+            if(block.alive){
+                game.drawImage(block);
+            }
+            
             // game.context.drawImage(img,paddle.x,paddle.y);
         }
         game.update = function(){
@@ -219,6 +246,12 @@
                 ball.speedY *=-1
                 mark += 1;
                 log("mark:"+mark)
+            }
+            //block 相撞
+            if(block.alive && block.collide(ball)){
+                //log(ball);
+                ball.speedY *=-1
+                block.kill();
             }
         }
         /*
