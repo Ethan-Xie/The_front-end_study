@@ -190,7 +190,18 @@
 
         var game = GuaGame();
         var paddle = Paddle();
-        var block = Block();
+
+        
+        var blocks = [];
+        for(var i=0; i<3;i++){
+           
+            var b = Block();
+             //设置坐标
+             b.x=i*50+i*10;
+             b.y=50;
+            blocks.push(b);
+        }
+        
 
         var ball=Ball();
         var mark=0;
@@ -210,6 +221,12 @@
         game.addAction('f',function(){
             ball.fire();
             document.getElementById("begin").innerText = "按F结束"
+        })
+        window.addEventListener('keydown',function(event){
+             if(event.key == 'p'){
+                 //paused =! paused
+                 ball.fired = false
+             }
         })
 /*
         img.onload = function(){
@@ -232,15 +249,20 @@
             //draw 
             game.drawImage(paddle);
             game.drawImage(ball);
-            if(block.alive){
+            for(var i=0; i<blocks.length; i++){
+                var block = blocks[i]
+                if(block.alive){
                 game.drawImage(block);
+                }
             }
+            
             
             // game.context.drawImage(img,paddle.x,paddle.y);
         }
         game.update = function(){
             ball.move()
             //判断相撞 paddle.collide
+            log("update")
             if(paddle.collide(ball)){
                 //log(ball);
                 ball.speedY *=-1
@@ -248,11 +270,15 @@
                 log("mark:"+mark)
             }
             //block 相撞
-            if(block.alive && block.collide(ball)){
-                //log(ball);
-                ball.speedY *=-1
-                block.kill();
+            for(var i=0; i<blocks.length; i++){
+                var block = blocks[i]
+                if(block.alive && block.collide(ball)){
+                    //log(ball);
+                    ball.speedY *=-1
+                    block.kill();
+                }
             }
+            
         }
         /*
         //events
