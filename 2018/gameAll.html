@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>game 1</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            /*border:1px red solid;*/
+        }
+        #id-canvas{
+            border:4px red solid;
+        }
+    </style>
+    <script src="./assert/guagame.js"></script>
+    <script src="./assert/paddle.js"></script>
+    <script src="./assert/ball.js"></script>
+    <script src="./assert/block.js"></script>
+
+</head>
+<body>
+    <center>
+            <canvas id="id-canvas" width="400" height="600"></canvas>
+            <br><br>
+            <button id="begin">按F开始</button>
+    </center>
+    
+</body>
+<script>
+    var log = console.log.bind(console);
+
+
+    var imageFromPath = function(path){
+        var img = new Image();
+        img.src= path;
+        return img;
+    }
+
+    //交集函数
+    var rectIntersects = function(o,ball) {
+            if(ball.y > o.y && ball.y <o.y+o.image.width){
+                if(ball.x > o.x && ball.x <o.x+o.image.width){
+                    return true;
+                }
+            }
+            return false;
+        }
+
+
+   
+    var __main =function() {
+
+        var game = GuaGame();
+        var paddle = Paddle();
+
+        
+        var blocks = [];
+        for(var i=0; i<3;i++){
+           
+            var b = Block();
+             //设置坐标
+             b.x=i*50+i*10;
+             b.y=50;
+            blocks.push(b);
+        }
+        
+
+        var ball=Ball();
+        var mark=0;
+        // var img = paddle.image;
+        // var img2 = ball.image;
+        // var leftDown = false;
+        // var rightDown = false;
+
+
+        //注册事件
+        game.addAction('a',function(){
+            paddle.moveLeft()
+        })
+        game.addAction('d',function(){
+            paddle.moveRight()
+        })
+        game.addAction('f',function(){
+            ball.fire();
+            document.getElementById("begin").innerText = "按F结束"
+        })
+        window.addEventListener('keydown',function(event){
+             if(event.key == 'p'){
+                 //paused =! paused
+                 ball.fired = false
+             }
+        })
+/*
+        img.onload = function(){
+            game.context.drawImage(img,paddle.x,paddle.y);
+        }
+        game.update = function(){
+            log("game.update")
+                 // update x
+            if(leftDown){
+                //向左移动
+                paddle.moveLeft()
+            }else if(rightDown){ 
+                //向右移动
+                paddle.moveRight()
+            }
+        }
+*/
+        game.draw = function(){
+            //log("game.draw");
+            //draw 
+            game.drawImage(paddle);
+            game.drawImage(ball);
+            for(var i=0; i<blocks.length; i++){
+                var block = blocks[i]
+                if(block.alive){
+                game.drawImage(block);
+                }
+            }
+            
+            
+            // game.context.drawImage(img,paddle.x,paddle.y);
+        }
+        game.update = function(){
+            ball.move()
+            //判断相撞 paddle.collide
+            //log("update")
+            if(paddle.collide(ball)){
+                //log(ball);
+                ball.speedY *=-1
+                mark += 1;
+                log("mark:"+mark)
+            }
+            //block 相撞
+            for(var i=0; i<blocks.length; i++){
+                var block = blocks[i]
+                if(block.alive && block.collide(ball)){
+                    //log(ball);
+                    ball.speedY *=-1
+                    block.kill();
+                }
+            }
+            
+        }
+        /*
+        //events
+        window.addEventListener('keydown',function(event){
+            var k = event.key;
+            if(k == 'a'){
+                leftDown = true;
+            }else if(k == 'd'){
+                rightDown = true;
+            }
+            log(event.type)
+        })
+
+        window.addEventListener('keyup',function(event){
+            var k = event.key;
+            if(k == 'a'){
+                leftDown = false;
+            }else if(k == 'd'){
+                rightDown = false;
+            }
+            log(event.type)
+        })
+        */
+        
+    }
+    
+    __main();
+</script>
+</html>
