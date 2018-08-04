@@ -17,6 +17,7 @@
             border:4px red solid;
         }
     </style>
+    <script src="./assert/utils.js"></script>
     <script src="./assert/guagame.js"></script>
     <script src="./assert/paddle.js"></script>
     <script src="./assert/ball.js"></script>
@@ -35,23 +36,7 @@
     var log = console.log.bind(console);
 
 
-    var imageFromPath = function(path){
-        var img = new Image();
-        img.src= path;
-        return img;
-    }
-
-    //交集函数
-    var rectIntersects = function(o,ball) {
-            if(ball.y > o.y && ball.y <o.y+o.image.width){
-                if(ball.x > o.x && ball.x <o.x+o.image.width){
-                    return true;
-                }
-            }
-            return false;
-        }
-
-
+   
    
     var __main =function() {
 
