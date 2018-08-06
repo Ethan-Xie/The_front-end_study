@@ -1,5 +1,7 @@
  //砖块
- var Block = function() {
+ var Block = function(position) {
+    // position 是 [0,0] 格式
+    var p = position
     var image = imageFromPath("../lib/block.png");
     var o = {
         image : image,
