@@ -1,12 +1,13 @@
  //砖块
  var Block = function(position) {
-    // position 是 [0,0] 格式
+    // position 是 [0,0] 格式 用来遍历生成
     var p = position
     var image = imageFromPath("../lib/block.png");
+    console.log(p)
     var o = {
         image : image,
-        x : 100,
-        y : 100,
+        x : p[0],
+        y : p[1],
         w : 100,
         h : 300,
         alive : true,
