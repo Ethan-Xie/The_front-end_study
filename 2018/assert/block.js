@@ -11,9 +11,16 @@
         w : 100,
         h : 300,
         alive : true,
+        lifes:p[2] || 1, // 用于记录其生命值
     }
     o.kill = function (){
         o.alive = false
+        /*
+        o.lifes--
+        if(o.lifes<1){
+            o.alive = false
+        }
+        */
     }
     o.collide = function(ball){
         if(rectIntersects(o,ball) || rectIntersects(ball,o)){

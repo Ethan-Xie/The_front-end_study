@@ -23,6 +23,11 @@ var GuaGame = function() {
     g.addAction = function(key,callback){
         g.actions[key] = callback;
     }
+
+    // timer
+     var runloop = function(fps) {
+         
+     }
     setInterval(function(){
         //events
         var actions = Object.keys(g.actions);
