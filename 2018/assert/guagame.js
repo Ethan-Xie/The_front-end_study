@@ -24,10 +24,38 @@ var GuaGame = function() {
         g.actions[key] = callback;
     }
 
+    window.fps = 50;
     // timer
-     var runloop = function(fps) {
-         
+    var runloop = function() {
+         log("runloop")
+         //events
+        var actions = Object.keys(g.actions);
+        for(var i = 0; i<actions.length;i++){
+            var key = actions[i];
+            if(g.keydowns[key]){
+                //如果按键被按下，调用注册的action
+                g.actions[key]();
+            }
+        }
+        //log(g.update);
+        //update
+        //g.update();
+        context.clearRect(0,0,canvas.width,canvas.height);
+        //draw
+        g.draw();
+        g.update();
+
+        //next runloop\
+        setTimeout(function(){
+            runloop()
+        },1000/window.fps)
      }
+
+     setTimeout(function(){
+        runloop()
+    },1000/window.fps)
+
+      /*
     setInterval(function(){
         //events
         var actions = Object.keys(g.actions);
@@ -46,6 +74,7 @@ var GuaGame = function() {
         g.draw();
         g.update();
     },1000/50);
+    */
     log(g.update);
     return g;
 }

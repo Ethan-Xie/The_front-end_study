@@ -29,10 +29,20 @@
             <canvas id="id-canvas" width="400" height="600"></canvas>
             <br><br>
             <button id="begin">按F开始</button>
+            <br><br>
+            <input id="input_range" type="range" value="value">
+            
     </center>
     
 </body>
 <script>
+
+    //改变速度
+    document.querySelector("#input_range").addEventListener('input',function(event){
+        var input = event.target
+        //log(event,input.value)
+        window.fps=Number(input.value)
+    })
 
     var loadLevel = function(n){
         var blocks = [];
@@ -151,8 +161,9 @@
         game.update = function(){
             ball.move()
             //判断相撞 paddle.collide
-            //log("update")
+            
             if(paddle.collide(ball)){
+                log("mark")
                 //log(ball);
                 ball.speedY *=-1
                 mark += 1;
