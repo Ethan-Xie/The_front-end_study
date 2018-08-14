@@ -21,12 +21,14 @@ var Paddle = function (){
         }
     }
     o.collide = function(ball){
-        if(ball.y+ball.image.height >o.y && ball.y+ball.image.height <o.y+20){
+        
+        if(ball.y+ball.image.height >o.y && ball.y+ball.image.height <o.y+o.image.height){
             if(ball.x > o.x && ball.x <o.x+o.image.width){
-                return true;
+                //log(ball.y,o.y)
+                return 1;
             }
         }
-        return false;
+        return 0;
     }
     return o;
     /*

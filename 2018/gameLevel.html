@@ -29,14 +29,21 @@
             <canvas id="id-canvas" width="400" height="600"></canvas>
             <br><br>
             <button id="begin">按F开始</button>
+            <input id="input_range" min="1" max="100" step="1" type="range" value="value">
             <br><br>
-            <input id="input_range" type="range" value="value">
+            <textarea name="" id="input_textarea" cols="55" rows="10"></textarea>
             
     </center>
     
 </body>
 <script>
-
+    //添加字体
+    function draw(){
+        var ctx=document.getElementById("id-canvas").getContext('2d');
+        ctx.font = '48px serif'
+        ctx.fillText('helloworld',10,50)
+    }
+    
     //改变速度
     document.querySelector("#input_range").addEventListener('input',function(event){
         var input = event.target
@@ -155,15 +162,18 @@
                 }
             }
             // game.context.drawImage(img,paddle.x,paddle.y);
+            var ctx=document.getElementById("id-canvas").getContext('2d');
+            ctx.font = '24px serif'
+            ctx.fillText('分数：'+ mark,10,50)
         }
 
 
         game.update = function(){
             ball.move()
             //判断相撞 paddle.collide
-            
+            //log(paddle.collide(ball))
             if(paddle.collide(ball)){
-                log("mark")
+                //log("mark")
                 //log(ball);
                 ball.speedY *=-1
                 mark += 1;
@@ -174,6 +184,7 @@
                 var block = blocks[i]
                 if(block.alive && block.collide(ball)){
                     //log(ball);
+                    log("kill")
                     ball.speedY *= -1
                     block.kill();
                 }

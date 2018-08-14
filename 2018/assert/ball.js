@@ -20,7 +20,7 @@ var Ball = function (){
            if(o.y < 0 || o.y >600-10){
                o.speedY = -o.speedY;
            }
-           log("move")
+           ///log("move")
            o.x += o.speedX;
            o.y += o.speedY;
         }

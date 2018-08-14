@@ -1,4 +1,10 @@
 var log = console.log.bind(console);
+
+var log = function(s) {
+    document.getElementById("input_textarea").value += '\n'+s
+}
+
+
 var imageFromPath = function(path){
     var img = new Image();
     img.src= path;

@@ -1,4 +1,6 @@
-var GuaGame = function() {
+var GuaGame = function(loads) {
+    //loads 是一个数组 里面是图像的函数
+    //程序会在所有图片 载入后执行
     var g = {
         actions: {},
         keydowns:{},
@@ -7,7 +9,7 @@ var GuaGame = function() {
     var context = canvas.getContext('2d');
     g.canvas =canvas;
     g.context = context;
-    log("Guamame");
+    //log("Guamame");
     g.drawImage = function(paddle){
         g.context.drawImage(paddle.image,paddle.x,paddle.y);
     }
@@ -27,7 +29,7 @@ var GuaGame = function() {
     window.fps = 50;
     // timer
     var runloop = function() {
-         log("runloop")
+         //log("runloop")
          //events
         var actions = Object.keys(g.actions);
         for(var i = 0; i<actions.length;i++){
