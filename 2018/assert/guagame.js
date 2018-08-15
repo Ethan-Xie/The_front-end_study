@@ -1,5 +1,6 @@
-var GuaGame = function(loads) {
+var GuaGame = function(images) {
     //loads 是一个数组 里面是图像的函数
+    
     //程序会在所有图片 载入后执行
     var g = {
         actions: {},
@@ -47,7 +48,7 @@ var GuaGame = function(loads) {
         g.draw();
         g.update();
 
-        //next runloop\
+        //next runloop
         setTimeout(function(){
             runloop()
         },1000/window.fps)
