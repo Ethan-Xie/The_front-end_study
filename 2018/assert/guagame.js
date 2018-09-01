@@ -1,6 +1,6 @@
 var GuaGame = function(images) {
     //loads 是一个数组 里面是图像的函数
-
+    loads = []
     //程序会在所有图片 载入后执行
     var g = {
         actions: {},
@@ -23,15 +23,36 @@ var GuaGame = function(images) {
     });
 
     //注册事件函数
-    g.addAction = function(key,callback){
+    g.addAction = function(key,callback){  
         g.actions[key] = callback;
     }
 
     window.fps = 50;
     // timer
     var runloop = function() {
-        var loads = []
-        //
+        // 预先载入 图片
+        //var loads = []
+        for(var i=0 ; i<images.length; i++)
+        {
+            var path = images[i];
+            var img = new Image()
+            img.src = path;
+            // 异步处理
+            img.onload = function() {
+                //带所有图像 调用run
+                loads.push(1)
+                if(loads.length == images.length){
+                    g.run();
+                }
+            }
+        }
+          /*
+            var imageFromPath = function(path){
+            var img = new Image();
+            img.src= path;
+            return img;
+        }
+          */
          //log("runloop")
          //events 
         var actions = Object.keys(g.actions);
